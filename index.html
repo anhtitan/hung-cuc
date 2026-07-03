@@ -80,8 +80,15 @@
         }
 
         @keyframes breathe {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
         }
 
         .click-icon {
@@ -114,6 +121,7 @@
             font-weight: 800;
             color: #111d13;
         }
+
         .couple-name span {
             font-family: 'Great Vibes', cursive;
             font-size: 2.6rem;
@@ -123,6 +131,7 @@
             vertical-align: middle;
             font-weight: 400;
         }
+
         .wedding-date {
             letter-spacing: 3px;
             font-size: 1.35rem;
@@ -139,7 +148,9 @@
         <h1 class="guest-name" id="guestName">bạn</h1>
 
         <div class="envelope-wrapper" onclick="openInvite()">
-            <img class="envelope-img" src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/envelop/Screenshot_2026-05-16_095204_pw8jbt.png" alt="Phong bì thiệp mời">
+            <img class="envelope-img"
+                src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/envelop/Screenshot_2026-05-16_095204_pw8jbt.png"
+                alt="Phong bì thiệp mời">
             <svg class="click-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <!-- White hand cursor icon -->
                 <path
@@ -171,7 +182,7 @@
             document.querySelector('.envelope-wrapper').style.opacity = '0';
 
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = 'wedding.html';
             }, 350);
         }
     </script>
