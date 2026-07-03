@@ -1835,4 +1835,10 @@ body.no-scroll {
         font-size: 1.1rem;
         letter-spacing: 2px;
     }
+    .hero-title {
+        font-size: clamp(2rem, 13vw, 3.2rem);
+    }
+    .hero-title .name {
+        white-space: nowrap;
+    }
 }
