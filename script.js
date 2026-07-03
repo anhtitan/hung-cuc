@@ -169,6 +169,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     rsvpForm.reset();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
+                    
+                    // Tự động tải lại danh sách lời chúc sau 2 giây (đợi Google Sheets ghi dữ liệu xong)
+                    setTimeout(() => {
+                        if(typeof fetchWishes === 'function') fetchWishes();
+                    }, 2000);
                 }, 800); // Báo thành công chỉ sau chưa tới 1 giây
             }
         });
