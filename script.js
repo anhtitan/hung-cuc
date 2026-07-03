@@ -78,12 +78,48 @@ document.addEventListener('DOMContentLoaded', () => {
     const animateElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
     animateElements.forEach(el => observer.observe(el));
 
+    // 4.5 Emoji Picker Logic
+    const emojiBtn = document.getElementById('emojiBtn');
+    const emojiPicker = document.getElementById('emojiPicker');
+    const wishTextarea = document.getElementById('wishTextarea');
+
+    if (emojiBtn && emojiPicker && wishTextarea) {
+        // Toggle picker visibility
+        emojiBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            emojiPicker.classList.toggle('active');
+        });
+
+        // Hide picker when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!emojiPicker.contains(e.target) && e.target !== emojiBtn) {
+                emojiPicker.classList.remove('active');
+            }
+        });
+
+        // Handle emoji selection
+        emojiPicker.addEventListener('emoji-click', event => {
+            const cursorPosition = wishTextarea.selectionStart;
+            const textBefore = wishTextarea.value.substring(0, cursorPosition);
+            const textAfter = wishTextarea.value.substring(cursorPosition, wishTextarea.value.length);
+            
+            wishTextarea.value = textBefore + event.detail.unicode + textAfter;
+            
+            // Restore cursor position
+            wishTextarea.selectionStart = cursorPosition + event.detail.unicode.length;
+            wishTextarea.selectionEnd = cursorPosition + event.detail.unicode.length;
+            
+            // Focus textarea
+            wishTextarea.focus();
+        });
+    }
+
     // 5. RSVP Form Submission to Google Sheets
     const rsvpForm = document.getElementById('rsvpForm');
     const formMessage = document.getElementById('formMessage');
 
     // MÃ GOOGLE SCRIPT URL SẼ ĐƯỢC DÁN VÀO ĐÂY:
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwfMaIKaAwnXTxCOmMHJUvefmEJw368f3N4cFoZjUfc2iIGmuPujpuTVRGKHPHOaTPwCw/exec';
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwG_oLZzpU2qwn5qXkIWIo2tXPmhYMSs5eAezpb2OUPbF1CD-Mw0XVFTRAQ6G0HAbRO/exec';
 
     if (rsvpForm) {
         const submitBtn = rsvpForm.querySelector('button[type="submit"]');
@@ -137,6 +173,106 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    // 5.5 Fetch and Display Wishes
+    const wishesGrid = document.getElementById('wishesGrid');
+    const wishesLoading = document.getElementById('wishesLoading');
+    const btnViewAllWishes = document.getElementById('btnViewAllWishes');
+    const wishesModal = document.getElementById('wishesModal');
+    const closeWishesModal = document.getElementById('closeWishesModal');
+    const wishesModalList = document.getElementById('wishesModalList');
+    const wishesTotalCount = document.getElementById('wishesTotalCount');
+
+    const createWishCard = (wish) => {
+        let dateObj = new Date(wish.timestamp);
+        let dateStr = isNaN(dateObj) ? '' : dateObj.toLocaleDateString('vi-VN');
+        
+        return `
+            <div class="wish-card">
+                <div class="wish-quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+                <div class="wish-message">${String(wish.message || '').replace(/\n/g, '<br>')}</div>
+                <div class="wish-meta">
+                    <div class="wish-author">
+                        <span class="author-name">${wish.name}</span>
+                        <span class="author-rel">${wish.guestOf ? 'Khách của ' + wish.guestOf : ''}</span>
+                    </div>
+                    <div class="wish-date">${dateStr}</div>
+                </div>
+            </div>
+        `;
+    };
+
+    const fetchWishes = () => {
+        if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === '') return;
+
+        fetch(GOOGLE_SCRIPT_URL)
+            .then(res => res.json())
+            .then(data => {
+                if (data.result === 'success') {
+                    // Đảo ngược lại (cũ nhất lên đầu) do Apps Script đang gửi mới nhất lên đầu
+                    const wishes = data.data.reverse();
+                    if(wishesLoading) wishesLoading.style.display = 'none';
+                    
+                    if (wishes.length === 0) {
+                        if(wishesGrid) wishesGrid.innerHTML = '<p class="text-center" style="grid-column: 1/-1; color: #666;">Chưa có lời chúc nào. Hãy là người đầu tiên gửi lời chúc nhé!</p>';
+                        return;
+                    }
+
+                    // Hiển thị 6 lời chúc mới nhất (đã được sắp xếp ngược từ Apps Script)
+                    let htmlPreview = '';
+                    const previewCount = Math.min(wishes.length, 6);
+                    for (let i = 0; i < previewCount; i++) {
+                        htmlPreview += createWishCard(wishes[i]);
+                    }
+                    if(wishesGrid) wishesGrid.innerHTML = htmlPreview;
+
+                    // Render Modal
+                    if (wishes.length > 0) {
+                        if(btnViewAllWishes) {
+                            btnViewAllWishes.style.display = 'inline-block';
+                            btnViewAllWishes.innerText = `XEM TẤT CẢ (${wishes.length})`;
+                        }
+                        if(wishesTotalCount) wishesTotalCount.innerText = wishes.length;
+                        
+                        let htmlAll = '';
+                        wishes.forEach(wish => {
+                            htmlAll += createWishCard(wish);
+                        });
+                        if(wishesModalList) wishesModalList.innerHTML = htmlAll;
+                    }
+                } else {
+                    if(wishesLoading) wishesLoading.innerHTML = '<p>Không thể tải lời chúc.</p>';
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                if(wishesLoading) wishesLoading.innerHTML = '<p>Đã xảy ra lỗi khi tải lời chúc.</p>';
+            });
+    };
+
+    if (btnViewAllWishes) {
+        btnViewAllWishes.addEventListener('click', () => {
+            wishesModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    }
+    if (closeWishesModal) {
+        closeWishesModal.addEventListener('click', () => {
+            wishesModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
+    if (wishesModal) {
+        wishesModal.addEventListener('click', (e) => {
+            if (e.target === wishesModal) {
+                wishesModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+
+    // Tự động tải lời chúc khi vào trang
+    fetchWishes();
+
 
     // 6. Countdown Timer
     const countdown = () => {

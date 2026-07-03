@@ -350,6 +350,29 @@
         </div>
     </section>
 
+    <!-- Wishes Section -->
+    <section class="wishes-section fade-in-up" id="wishes">
+        <div class="container">
+            <p class="subtitle text-center">LỜI CHÚC</p>
+            <h2 class="section-title text-center" style="margin-bottom: 50px;">Những Lời Chúc Tốt Đẹp</h2>
+            
+            <div class="wishes-grid" id="wishesGrid">
+                <!-- Loading State -->
+                <div class="wish-loading text-center" id="wishesLoading">
+                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: #55875c; margin-bottom: 10px;"></i>
+                    <p>Đang tải những lời chúc ngọt ngào nhất...</p>
+                </div>
+            </div>
+            
+            <div class="wishes-actions text-center" style="margin-top: 40px;">
+                <button class="btn-primary" id="btnViewAllWishes" style="background-color: #55875c; display: none; padding: 12px 30px; font-weight: bold; font-size: 0.9rem;">XEM TẤT CẢ (0)</button>
+                <div style="margin-top: 20px;">
+                    <a href="#rsvp" class="send-wish-link" style="color: #55875c; text-decoration: none; font-size: 0.9rem;"><i class="fa-solid fa-wand-magic-sparkles"></i> Gửi lời chúc cho cô dâu chú rể</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- RSVP Section -->
     <section class="rsvp" id="rsvp">
         <div class="container text-center fade-in-up">
@@ -359,10 +382,11 @@
             <div class="rsvp-form-container">
                 <form class="rsvp-form new-rsvp-form" id="rsvpForm">
                     <!-- Textarea for message -->
-                    <div class="form-group message-group">
-                        <textarea name="message" rows="4"
-                            placeholder="Viết vài lời chúc thật dễ thương cho cô dâu, chú rể..." required></textarea>
-                        <i class="fa-regular fa-face-smile smile-icon"></i>
+                    <div class="form-group message-group" style="position: relative;">
+                        <textarea id="wishTextarea" name="message" rows="4"
+                            placeholder="Viết vài lời chúc thật dễ thương cho cô dâu, chú rể..." required style="resize: none;"></textarea>
+                        <i class="fa-regular fa-face-smile smile-icon" id="emojiBtn"></i>
+                        <emoji-picker id="emojiPicker" class="hidden-emoji-picker"></emoji-picker>
                     </div>
 
                     <!-- Who invited you -->
@@ -548,7 +572,7 @@
                     <p>GIÂY</p>
                 </div>
             </div>
-            <p class="countdown-date">Thứ Bảy, ngày 08 tháng 8, 2026 • Giao Minh, Ninh Bình, Việt Nam</p>
+            <p class="countdown-date">Thứ Bảy, ngày 08 tháng 8 năm 2026 <br>Giao Minh, Ninh Bình, Việt Nam</p>
         </div>
     </section>
 
@@ -590,7 +614,27 @@
         <a class="lightbox-next">&#10095;</a>
     </div>
 
+    <!-- Wishes Modal -->
+    <div id="wishesModal" class="wishes-modal">
+        <div class="wishes-modal-content">
+            <div class="wishes-modal-left">
+                <img src="./assets/images/wedding/c3.webp" alt="Couple">
+            </div>
+            <div class="wishes-modal-right">
+                <button class="wishes-close-btn" id="closeWishesModal"><i class="fa-solid fa-xmark"></i></button>
+                <div class="wishes-modal-header">
+                    <h3><i class="fa-regular fa-envelope" style="color: #d15656; margin-right: 8px;"></i> Lời chúc</h3>
+                    <p>Tổng cộng <span id="wishesTotalCount">0</span> lời chúc &bull; Cuộn xuống để xem thêm</p>
+                </div>
+                <div class="wishes-scroll-container" id="wishesModalList">
+                    <!-- Sẽ được điền bằng Javascript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"></script>
     <script src="./script.js"></script>
 </body>
 
