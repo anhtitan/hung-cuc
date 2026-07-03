@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quang Hưng & Kim Cúc - We're Getting Married</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Trân trọng kính mời Quý khách đến tham dự lễ cưới của Quang Hưng và Kim Cúc">
+    <meta property="og:title" content="Hưng & Cúc - We're Getting Married">
+    <meta property="og:description" content="Trân trọng kính mời Quý khách đến tham dự lễ cưới">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-links left-links">
+                <a href="#about">Câu chuyện</a>
+                <a href="#timeline">Lịch trình</a>
+            </div>
+            <a href="#" class="nav-brand">H & C</a>
+            <div class="nav-links right-links">
+                <a href="#gallery">Album</a>
+                <a href="#rsvp">Gửi lời chúc</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Mở menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="mobile-menu">
+            <a href="#about">Câu chuyện</a>
+            <a href="#timeline">Lịch trình</a>
+            <a href="#gallery">Album</a>
+            <a href="#rsvp">Gửi lời chúc</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="hero-bg" style="background-image: url('./assets/images/lay.webp');">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content fade-in-up">
+            <p class="hero-subtitle">LỄ THÀNH HÔN</p>
+            <h1 class="hero-title">
+                <span class="name">Quang Hưng</span>
+                <span class="&">&</span>
+                <span class="name">Kim Cúc</span>
+            </h1>
+            <div class="hero-divider"></div>
+            <div class="hero-date">
+                <span class="date-text">08.08.2026</span>
+                <span class="location-text">Giao Minh, Ninh Bình, Việt Nam</span>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+        <div class="hero-curve">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                <path
+                    d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+                    fill="currentColor"></path>
+            </svg>
+        </div>
+    </header>
+
+    <!-- Save The Date (Calendar) -->
+    <section class="save-the-date fade-in-up" id="calendar">
+        <div class="calendar-card">
+            <div class="calendar-header">
+                <div class="line"></div>
+                <h2>Tháng 8, 2026</h2>
+                <div class="line"></div>
+            </div>
+            <p class="calendar-subtitle">SAVE THE DATE</p>
+
+            <div class="calendar-grid days-of-week">
+                <span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span>
+            </div>
+            <div class="calendar-grid days">
+                <!-- Empty spaces for days of week alignment -->
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <span>1</span><span>2</span>
+                <span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                <div class="wedding-day">
+                    <span class="heart-bg">♡</span>
+                    <span class="day-num">8</span>
+                </div>
+                <span>9</span>
+                <span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span>
+                <span>17</span><span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span>
+                <span>24</span><span>25</span><span>26</span><span>27</span><span>28</span><span>29</span><span>30</span>
+                <span>31</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-header text-center fade-in-up">
+                <p class="subtitle">CHÚ RỂ & CÔ DÂU</p>
+                <h2 class="title">Đôi Nét Về Chúng Tôi</h2>
+            </div>
+
+            <div class="couple-grid">
+                <!-- Groom -->
+                <div class="person groom fade-in-left">
+                    <div class="image-wrapper">
+                        <img src="./assets/images/groom.png" alt="Chú rể Hưng" class="person-img">
+                        <div class="img-overlay"></div>
+                    </div>
+                    <div class="person-info">
+                        <h3>Quang Hưng</h3>
+                        <div class="parents">
+                            <p>Con Bà <span>Nguyễn Thị A</span></p>
+                        </div>
+                        <div class="divider-small"></div>
+                    </div>
+                </div>
+
+                <!-- Bride -->
+                <div class="person bride fade-in-right">
+                    <div class="image-wrapper">
+                        <img src="./assets/images/bride.png" alt="Cô dâu Cúc" class="person-img">
+                        <div class="img-overlay"></div>
+                    </div>
+                    <div class="person-info">
+                        <h3>Kim Cúc</h3>
+                        <div class="parents">
+                            <p>Con Ông <span>Bùi Huy Hoàng</span><br>và Bà <span>Nguyễn Thị Tuyết</span></p>
+                        </div>
+                        <div class="divider-small"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="couple-divider fade-in-up">
+                <div class="line"></div>
+                <i class="fa-solid fa-heart"></i>
+                <div class="line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline" id="timeline">
+        <div class="container">
+            <div class="section-header text-center fade-in-up">
+                <p class="subtitle">LỊCH TRÌNH</p>
+                <h2 class="title">Ngày Trọng Đại</h2>
+            </div>
+
+            <div class="timeline-cards">
+                <!-- Card 1 -->
+                <div class="card fade-in-up">
+                    <div class="card-img">
+                        <img src="./assets/images/lay.webp" alt="Lễ Vu Quy">
+                        <div class="icon-circle">🏠</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Lễ Vu Quy</h3>
+                        <div class="details">
+                            <div class="detail-item">
+                                <i class="fa-regular fa-clock"></i>
+                                <span>9:00 - 10:30</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div>
+                                    <p class="address">Nhà Gái</p>
+                                    <p class="address-desc">Xuân Thiện, Giao Phúc, Ninh Bình</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-outline">
+                            <i class="fa-solid fa-car"></i> Chỉ đường
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="card fade-in-up delay-1">
+                    <div class="card-img">
+                        <img src="./assets/images/lay.webp" alt="Thành Hôn">
+                        <div class="icon-circle">💒</div>
+                    </div>
+                    <div class="card-content">
+                        <h3>Thành Hôn</h3>
+                        <div class="details">
+                            <div class="detail-item">
+                                <i class="fa-regular fa-clock"></i>
+                                <span>11:00 - 14:00</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fa-solid fa-location-dot"></i>
+                                <div>
+                                    <p class="address">Nhà trai</p>
+                                    <p class="address-desc">Giao Minh, Ninh Bình</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn-outline">
+                            <i class="fa-solid fa-car"></i> Chỉ đường
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dress Code -->
+            <!-- <div class="dresscode-box fade-in-up">
+                <div class="icon-wrapper">
+                    <i class="fa-solid fa-shirt"></i>
+                </div>
+                <h3>MÀU TRANG PHỤC</h3>
+                <p>(Dress Code)</p>
+                <div class="colors">
+                    <div class="color-circle" style="background-color: #ffffff; border: 1px solid #ddd;"></div>
+                    <div class="color-circle" style="background-color: #f5f5dc;"></div>
+                    <div class="color-circle" style="background-color: #3b2f2f;"></div>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container text-center">
+            <h2 class="title fade-in-up">Album Ảnh Cưới</h2>
+            <div class="gallery-wrapper">
+                <!-- Part 1: Slider (Landscape) -->
+                <div class="gallery-slider-container fade-in-up">
+                    <div class="gallery-slider" id="gallerySlider">
+                        <img src="./assets/images/wedding/2.webp" class="slide active">
+                        <img src="./assets/images/wedding/1.webp" class="slide">
+                        <img src="./assets/images/wedding/3.webp" class="slide">
+                        <img src="./assets/images/wedding/4.webp" class="slide">
+                    </div>
+                </div>
+
+                <!-- Part 2: 3-column masonry grid -->
+                <div class="gallery-masonry-1 mt-4 fade-in-up delay-1">
+                    <div class="gm-col"><img src="./assets/images/wedding/b1.webp"></div>
+                    <div class="gm-col"><img src="./assets/images/wedding/b2.webp"></div>
+                    <div class="gm-col"><img src="./assets/images/wedding/b3.webp"></div>
+                    <div class="gm-col"><img src="./assets/images/wedding/b4.webp"></div>
+                    <div class="gm-col"><img src="./assets/images/wedding/b5.webp"></div>
+                    <div class="gm-col"><img src="./assets/images/wedding/b6.webp"></div>
+
+                </div>
+
+                <!-- Part 3: Asymmetric layout -->
+                <div class="gallery-masonry-2 mt-4 fade-in-up delay-2">
+                    <div class="gm2-left-block">
+                        <div class="gm2-grid-inner">
+                            <div class="gm2-inner-left">
+                                <div class="forever-love-wrapper">
+                                    <h3 class="forever-love">FOREVER LOVE</h3>
+                                </div>
+                                <img src="./assets/images/wedding/b3.webp" class="gm2-inner-left-img">
+                            </div>
+                            <div class="gm2-inner-right">
+                                <img src="./assets/images/wedding/c2.webp">
+                                <img src="./assets/images/wedding/c3.webp">
+                            </div>
+                        </div>
+                        <p class="love-quote">It only takes a second to say I love you, but it will take a lifetime to
+                            show you how much</p>
+                    </div>
+                    <div class="gm2-right-block">
+                        <img src="./assets/images/wedding/c4.webp">
+                    </div>
+                </div>
+
+                <!-- Part 4: Center Box -->
+                <div class="gallery-center-box mt-4 fade-in-up">
+                    <div class="box-images">
+                        <img src="./assets/images/wedding/d2.webp">
+                        <img src="./assets/images/wedding/d3.webp">
+                    </div>
+                    <h3 class="box-title">LOVE WHISPERS<br>THROUGH THE LEAVES</h3>
+                    <p class="box-desc">In the quiet of the garden, love whispers through the leaves</p>
+                </div>
+            </div>
+
+            <button class="btn-primary mt-4 fade-in-up"
+                style="background-color: #438f53; border-radius: 30px; letter-spacing: 0;">XEM TẤT CẢ (17)</button>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="container text-center">
+            <div class="section-header fade-in-up">
+                <h2 class="title">Video Cưới</h2>
+                <p class="video-desc">Cùng nhìn lại những khoảnh khắc đáng nhớ nhất trong chặng đường tình yêu của chúng
+                    mình nhé.</p>
+            </div>
+            <div class="video-wrapper fade-in-up">
+                <iframe src="https://www.youtube.com/embed/q0b5UrP-YuE?si=m5lC3p6x9948Dk6X" title="Wedding Video"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section class="rsvp" id="rsvp">
+        <div class="container text-center fade-in-up">
+            <p class="subtitle">LỜI CHÚC</p>
+            <h2 class="title">Sự hiện diện của bạn là niềm vinh hạnh của chúng tôi</h2>
+
+            <div class="rsvp-form-container">
+                <form class="rsvp-form" id="rsvpForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Tên của bạn *" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea rows="4" placeholder="Lời chúc gửi đến Cô Dâu & Chú Rể *" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Bạn sẽ tham dự chứ?</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="attendance" value="yes" checked> Có, tôi sẽ đến!</label>
+                            <label><input type="radio" name="attendance" value="no"> Tiếc quá, tôi không thể đến</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-primary w-full">GỬI LỜI CHÚC</button>
+                </form>
+                <p id="formMessage" class="form-message" style="display: none;"></p>
+            </div>
+        </div>
+    </section>
+    <!-- Gift Section -->
+    <section class="gift-section" id="gift">
+        <div class="container">
+            <div class="section-header text-center fade-in-up">
+                <div class="gift-icon-wrapper">
+                    <i class="fa-solid fa-gift"></i>
+                </div>
+                <p class="subtitle">MỪNG CƯỚI</p>
+                <h2 class="title">Hộp Mừng Cưới</h2>
+            </div>
+            <div class="gift-cards">
+                <!-- Groom Card -->
+                <div class="gift-card fade-in-up">
+                    <div class="gift-card-inner">
+                        <div class="gift-card-front">
+                            <div class="gift-card-header">
+                                <img src="./assets/images/groom.png" alt="Chú rể">
+                                <div class="gift-card-title">
+                                    <h3>MB Bank</h3>
+                                    <p>Chú rể</p>
+                                </div>
+                            </div>
+                            <div class="gift-card-body">
+                                <div class="bank-info">
+                                    <p class="label">Số tài khoản</p>
+                                    <div class="account-number">
+                                        <span>000000</span>
+                                        <button class="copy-btn" data-copy="000000"><i
+                                                class="fa-regular fa-copy"></i></button>
+                                    </div>
+                                    <p class="label mt-3">Chủ tài khoản</p>
+                                    <p class="account-name">TRAN QUANG HUNG</p>
+                                    <button class="qr-btn"><i class="fa-solid fa-hand-point-right"></i> Bấm để xem mã
+                                        QR</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gift-card-back">
+                            <p class="qr-title">Quét mã để mừng cưới</p>
+                            <img src="./assets/images/qr/qr1.jpg" alt="QR Code">
+                            <button class="qr-back-btn"><i class="fa-solid fa-hand-point-left"></i> Bấm để quay
+                                lại</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bride Card -->
+                <div class="gift-card fade-in-up delay-1">
+                    <div class="gift-card-inner">
+                        <div class="gift-card-front">
+                            <div class="gift-card-header">
+                                <img src="./assets/images/bride.png" alt="Cô dâu">
+                                <div class="gift-card-title">
+                                    <h3>Agribank</h3>
+                                    <p>Cô dâu</p>
+                                </div>
+                            </div>
+                            <div class="gift-card-body">
+                                <div class="bank-info">
+                                    <p class="label">Số tài khoản</p>
+                                    <div class="account-number">
+                                        <span>0000000</span>
+                                        <button class="copy-btn" data-copy="0000000"><i
+                                                class="fa-regular fa-copy"></i></button>
+                                    </div>
+                                    <p class="label mt-3">Chủ tài khoản</p>
+                                    <p class="account-name">BUI THI KIM CUC</p>
+                                    <button class="qr-btn"><i class="fa-solid fa-hand-point-right"></i> Bấm để xem mã
+                                        QR</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gift-card-back">
+                            <p class="qr-title">Quét mã để mừng cưới</p>
+                            <img src="./assets/images/qr/qr1.jpg" alt="QR Code">
+                            <button class="qr-back-btn"><i class="fa-solid fa-hand-point-left"></i> Bấm để quay
+                                lại</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gift-footer fade-in-up delay-2">
+                <p><i class="fa-solid fa-heart" style="color: #438f53;"></i> Cảm ơn Quý khách đã yêu thương và chúc phúc
+                    cho gia đình chúng tôi <i class="fa-solid fa-heart" style="color: #438f53;"></i></p>
+            </div>
+        </div>
+    </section>
+    <!-- Countdown Section -->
+    <section class="countdown-section fade-in-up" style="background-image: url('./assets/images/count.webp');">
+        <div class="countdown-overlay"></div>
+        <div class="container text-center countdown-content">
+            <p class="subtitle text-white">SAVE THE DATE</p>
+            <h2 class="title text-white">Đếm Ngược Đến Ngày Cưới</h2>
+            <div class="countdown-timer" id="countdown">
+                <div class="time-box"><span id="days">00</span>
+                    <p>NGÀY</p>
+                </div>
+                <div class="time-box"><span id="hours">00</span>
+                    <p>GIỜ</p>
+                </div>
+                <div class="time-box"><span id="minutes">00</span>
+                    <p>PHÚT</p>
+                </div>
+                <div class="time-box"><span id="seconds">00</span>
+                    <p>GIÂY</p>
+                </div>
+            </div>
+            <p class="countdown-date">Thứ Bảy, ngày 08 tháng 8, 2026 • Giao Minh, Ninh Bình, Việt Nam</p>
+        </div>
+    </section>
+
+    <!-- Thank You Section -->
+    <section class="thank-you-section text-center fade-in-up">
+        <div class="container">
+            <div class="thank-you-img-wrapper">
+                <img src="./assets/images/wedding/c3.webp" alt="Couple" class="thank-you-img">
+            </div>
+            <p class="subtitle mt-4">THANK YOU</p>
+            <p class="thank-you-text">Quang Hưng và Kim Cúc<br>xin chân thành cảm ơn và hẹn gặp Quý khách trong ngày
+                trọng đại!</p>
+            <div class="thank-you-hearts">
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
+                <i class="fa-solid fa-heart"></i>
+            </div>
+            <p class="thank-you-subtext">Sự hiện diện và những lời chúc của Quý khách là niềm hạnh phúc lớn đối với gia
+                đình chúng tôi.
+                <br>
+                Lướt đọc đến đây thôi nhá, mấy nữa có ảnh cưới rồi thì demo tiếp cho nha
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Powered by <a href="https://www.facebook.com/anhtitan.pda" target="_blank">anhtitan.pda</a> </p>
+    </footer>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-counter"></div>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="Wedding Photo">
+        </div>
+        <a class="lightbox-prev">&#10094;</a>
+        <a class="lightbox-next">&#10095;</a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="./script.js"></script>
+</body>
+
+</html>
