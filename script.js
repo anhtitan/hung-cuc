@@ -258,3 +258,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Invite Overlay Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    let guest = urlParams.get('guest');
+    
+    const guestNameEl = document.getElementById('guestName');
+    const overlay = document.getElementById('inviteOverlay');
+    
+    if (overlay && guestNameEl) {
+        if (guest) {
+            guestNameEl.textContent = guest;
+        } else {
+            guestNameEl.textContent = 'Bạn';
+        }
+        document.body.classList.add('no-scroll');
+    }
+});
+
+function openInvite() {
+    const overlay = document.getElementById('inviteOverlay');
+    const wrapper = document.querySelector('.envelope-wrapper');
+    
+    // Cuộn lên đầu trang ngay lập tức
+    window.scrollTo(0, 0);
+    
+    if (wrapper) {
+        wrapper.style.transform = 'scale(1.2)';
+        wrapper.style.opacity = '0';
+    }
+    
+    setTimeout(() => {
+        if (overlay) {
+            overlay.classList.add('hidden');
+            document.body.classList.remove('no-scroll');
+        }
+    }, 400);
+}
