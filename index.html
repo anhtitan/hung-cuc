@@ -31,12 +31,17 @@
     <div id="inviteOverlay" class="invite-overlay">
         <div class="invite-container">
             <p class="top-text">TRÂN TRỌNG KÍNH MỜI</p>
-            <h1 class="guest-name" id="guestName">bạn</h1>
-            
+            <h1 class="guest-name" id="guestName"></h1>
+
             <div class="envelope-wrapper" onclick="openInvite()">
-                <img class="envelope-img" src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/envelop/Screenshot_2026-05-16_095204_pw8jbt.png" alt="Phong bì thiệp mời">
+                <img class="envelope-img"
+                    src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/envelop/Screenshot_2026-05-16_095204_pw8jbt.png"
+                    alt="Phong bì thiệp mời">
                 <svg class="click-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 11V4C12 2.89543 11.1046 2 10 2C8.89543 2 8 2.89543 8 4V14.5L5.70711 12.2071C5.31658 11.8166 4.68342 11.8166 4.29289 12.2071C3.90237 12.5976 3.90237 13.2308 4.29289 13.6213L9.58579 18.9142C10.3361 19.6645 11.3537 20.0858 12.4142 20.0858H16C17.6569 20.0858 19 18.7426 19 17.0858V11C19 9.89543 18.1046 9 17 9H16V7C16 5.89543 15.1046 5 14 5C12.8954 5 12 5.89543 12 7V11Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(255,255,255,0.2)"/>
+                    <path
+                        d="M12 11V4C12 2.89543 11.1046 2 10 2C8.89543 2 8 2.89543 8 4V14.5L5.70711 12.2071C5.31658 11.8166 4.68342 11.8166 4.29289 12.2071C3.90237 12.5976 3.90237 13.2308 4.29289 13.6213L9.58579 18.9142C10.3361 19.6645 11.3537 20.0858 12.4142 20.0858H16C17.6569 20.0858 19 18.7426 19 17.0858V11C19 9.89543 18.1046 9 17 9H16V7C16 5.89543 15.1046 5 14 5C12.8954 5 12 5.89543 12 7V11Z"
+                        stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        fill="rgba(255,255,255,0.2)" />
                 </svg>
             </div>
 
@@ -352,21 +357,84 @@
             <h2 class="title">Sự hiện diện của bạn là niềm vinh hạnh của chúng tôi</h2>
 
             <div class="rsvp-form-container">
-                <form class="rsvp-form" id="rsvpForm">
-                    <div class="form-group">
-                        <input type="text" placeholder="Tên của bạn *" required>
+                <form class="rsvp-form new-rsvp-form" id="rsvpForm">
+                    <!-- Textarea for message -->
+                    <div class="form-group message-group">
+                        <textarea name="message" rows="4"
+                            placeholder="Viết vài lời chúc thật dễ thương cho cô dâu, chú rể..." required></textarea>
+                        <i class="fa-regular fa-face-smile smile-icon"></i>
                     </div>
-                    <div class="form-group">
-                        <textarea rows="4" placeholder="Lời chúc gửi đến Cô Dâu & Chú Rể *" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Bạn sẽ tham dự chứ?</label>
-                        <div class="radio-group">
-                            <label><input type="radio" name="attendance" value="yes" checked> Có, tôi sẽ đến!</label>
-                            <label><input type="radio" name="attendance" value="no"> Tiếc quá, tôi không thể đến</label>
+
+                    <!-- Who invited you -->
+                    <div class="form-group guest-of-group text-left">
+                        <label class="form-label">Bạn là khách mời của ai?</label>
+                        <div class="guest-cards">
+                            <label class="guest-card">
+                                <input type="radio" name="guestOf" value="Chú rể" required>
+                                <div class="card-content">
+                                    <img src="./assets/images/groom.png" alt="Chú rể">
+                                    <div class="card-overlay">Chú rể</div>
+                                </div>
+                            </label>
+                            <label class="guest-card">
+                                <input type="radio" name="guestOf" value="Cô dâu">
+                                <div class="card-content">
+                                    <img src="./assets/images/bride.png" alt="Cô dâu">
+                                    <div class="card-overlay">Cô dâu</div>
+                                </div>
+                            </label>
+                            <label class="guest-card">
+                                <input type="radio" name="guestOf" value="Cả hai">
+                                <div class="card-content">
+                                    <img src="./assets/images/wedding/c3.webp" alt="Cả hai">
+                                    <div class="card-overlay">Cả hai</div>
+                                </div>
+                            </label>
                         </div>
                     </div>
-                    <button type="submit" class="btn-primary w-full">GỬI LỜI CHÚC</button>
+
+                    <!-- Name and Nickname -->
+                    <div class="form-group text-left">
+                        <label class="form-label">Tên của bạn</label>
+                        <input type="text" name="name" placeholder="Nguyễn Văn A" required>
+                    </div>
+
+                    <div class="form-group text-left">
+                        <label class="form-label">Biệt danh</label>
+                        <input type="text" name="nickname"
+                            placeholder="VD: Bạn cấp 3 của cô dâu, Bạn đồng nghiệp của chú rể ...">
+                    </div>
+
+                    <!-- Attendance and Guest Count -->
+                    <div class="form-row">
+                        <div class="form-group text-left half-width">
+                            <label class="form-label">Bạn có thể tham dự không?</label>
+                            <div class="custom-select-wrapper">
+                                <select name="attendance" required>
+                                    <option value="" disabled selected>-- Chọn câu trả lời --</option>
+                                    <option value="Có">Có, tôi sẽ đến!</option>
+                                    <option value="Không">Tiếc quá, tôi không thể đến</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group text-left half-width">
+                            <label class="form-label">Số người tham dự</label>
+                            <div class="custom-select-wrapper">
+                                <select name="guestCount" required>
+                                    <option value="" disabled selected>-- Số người --</option>
+                                    <option value="1">1 người</option>
+                                    <option value="2">2 người</option>
+                                    <option value="3">3 người</option>
+                                    <option value="4+">4 người trở lên</option>
+                                    <option value="0">0 (Không tham dự)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary w-full send-btn" style="background-color: #55875c;">
+                        <i class="fa-regular fa-paper-plane" style="margin-right: 5px;"></i> GỬI LỜI CHÚC
+                    </button>
                 </form>
                 <p id="formMessage" class="form-message" style="display: none;"></p>
             </div>

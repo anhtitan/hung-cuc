@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 const navHeight = navbar.offsetHeight;
@@ -78,33 +78,63 @@ document.addEventListener('DOMContentLoaded', () => {
     const animateElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
     animateElements.forEach(el => observer.observe(el));
 
-    // 5. RSVP Form Submission Mockup
+    // 5. RSVP Form Submission to Google Sheets
     const rsvpForm = document.getElementById('rsvpForm');
     const formMessage = document.getElementById('formMessage');
 
+    // MÃ GOOGLE SCRIPT URL SẼ ĐƯỢC DÁN VÀO ĐÂY:
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwfMaIKaAwnXTxCOmMHJUvefmEJw368f3N4cFoZjUfc2iIGmuPujpuTVRGKHPHOaTPwCw/exec';
+
     if (rsvpForm) {
+        const submitBtn = rsvpForm.querySelector('button[type="submit"]');
+        submitBtn.addEventListener('click', () => {
+            if (!rsvpForm.checkValidity()) {
+                alert("Vui lòng điền và chọn đầy đủ các thông tin bắt buộc (*) trước khi gửi lời chúc nhé!");
+            }
+        });
+
         rsvpForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            
-            // Get values
-            const nameInput = rsvpForm.querySelector('input[type="text"]').value;
-            
-            // Show loading state (mock)
+
             const btn = rsvpForm.querySelector('button[type="submit"]');
-            const originalText = btn.innerText;
-            btn.innerText = 'ĐANG GỬI...';
+            const originalText = btn.innerHTML;
+
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang gửi...';
             btn.disabled = true;
 
-            // Mock API request delay
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.disabled = false;
-                
-                // Show success message
-                rsvpForm.style.display = 'none';
-                formMessage.innerText = `Cảm ơn ${nameInput} đã gửi lời chúc!`;
-                formMessage.style.display = 'block';
-            }, 1500);
+            const formData = new FormData(rsvpForm);
+
+            if (GOOGLE_SCRIPT_URL === '') {
+                // Giả lập nếu chưa có link Google Script
+                setTimeout(() => {
+                    formMessage.innerText = 'Cảm ơn bạn!';
+                    formMessage.style.display = 'block';
+                    formMessage.style.color = '#55875c';
+                    formMessage.style.marginTop = '20px';
+                    formMessage.style.fontWeight = 'bold';
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 1000);
+            } else {
+                // Gửi dữ liệu thật (Fire and forget)
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: formData
+                }).catch(err => console.error('Lỗi ngầm:', err));
+
+                // Báo thành công ngay lập tức để người dùng không phải đợi Google phản hồi (Optimistic UI)
+                setTimeout(() => {
+                    formMessage.innerText = 'Cảm ơn bạn đã gửi lời chúc! Hẹn gặp bạn tại lễ cưới nhé.';
+                    formMessage.style.display = 'block';
+                    formMessage.style.color = '#55875c';
+                    formMessage.style.marginTop = '20px';
+                    formMessage.style.fontWeight = 'bold';
+                    rsvpForm.reset();
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 800); // Báo thành công chỉ sau chưa tới 1 giây
+            }
         });
     }
 
@@ -131,10 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const ms = document.getElementById('minutes');
         const ss = document.getElementById('seconds');
 
-        if(ds) ds.innerText = d < 10 ? '0' + d : d;
-        if(hs) hs.innerText = h < 10 ? '0' + h : h;
-        if(ms) ms.innerText = m < 10 ? '0' + m : m;
-        if(ss) ss.innerText = s < 10 ? '0' + s : s;
+        if (ds) ds.innerText = d < 10 ? '0' + d : d;
+        if (hs) hs.innerText = h < 10 ? '0' + h : h;
+        if (ms) ms.innerText = m < 10 ? '0' + m : m;
+        if (ss) ss.innerText = s < 10 ? '0' + s : s;
     };
 
     setInterval(countdown, 1000);
@@ -213,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
     if (lightboxPrev) lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); changeImage(-1); });
     if (lightboxNext) lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); changeImage(1); });
-    
+
     // Close on background click
     if (lightbox) {
         lightbox.addEventListener('click', (e) => {
@@ -243,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const qrBtns = document.querySelectorAll('.qr-btn');
     const qrBackBtns = document.querySelectorAll('.qr-back-btn');
-    
+
     qrBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             const cardInner = btn.closest('.gift-card-inner');
@@ -263,15 +293,15 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     let guest = urlParams.get('guest');
-    
+
     const guestNameEl = document.getElementById('guestName');
     const overlay = document.getElementById('inviteOverlay');
-    
+
     if (overlay && guestNameEl) {
         if (guest) {
             guestNameEl.textContent = guest;
         } else {
-            guestNameEl.textContent = 'Bạn';
+            guestNameEl.textContent = 'Các vị khách quý';
         }
         document.body.classList.add('no-scroll');
     }
@@ -280,15 +310,15 @@ document.addEventListener('DOMContentLoaded', () => {
 function openInvite() {
     const overlay = document.getElementById('inviteOverlay');
     const wrapper = document.querySelector('.envelope-wrapper');
-    
+
     // Cuộn lên đầu trang ngay lập tức
     window.scrollTo(0, 0);
-    
+
     if (wrapper) {
         wrapper.style.transform = 'scale(1.2)';
         wrapper.style.opacity = '0';
     }
-    
+
     setTimeout(() => {
         if (overlay) {
             overlay.classList.add('hidden');

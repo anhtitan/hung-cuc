@@ -13,8 +13,9 @@
     /* Light mint */
     --bg-secondary: #e6eee6;
     /* Darker mint */
-    --text-main: #3b473b;
-    --text-muted: #6b8e6b;
+    --text-main: #333333;
+    --text-muted: #637381;
+    --white: #ffffff;
     --font-serif: 'Playfair Display', serif;
     --font-sans: 'Inter', sans-serif;
     --transition: all 0.3s ease;
@@ -858,7 +859,7 @@ a {
 
 .love-quote {
     font-size: 0.85rem;
-    color: #5c7482;
+    color: var(--text-muted);
     text-align: center;
     margin-top: 25px;
     padding: 0 10px;
@@ -1312,6 +1313,179 @@ a {
     z-index: 10001;
 }
 
+/* --- NEW RSVP FORM --- */
+.new-rsvp-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.new-rsvp-form .form-group {
+    margin-bottom: 25px;
+}
+
+.new-rsvp-form .text-left {
+    text-align: left;
+}
+
+.new-rsvp-form .form-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 0.95rem;
+}
+
+/* Inputs & Textareas */
+.new-rsvp-form input[type="text"],
+.new-rsvp-form textarea,
+.new-rsvp-form select {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #e1eee3;
+    border-radius: 12px;
+    background-color: #f2fae8;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    transition: var(--transition);
+}
+
+.new-rsvp-form input[type="text"]:focus,
+.new-rsvp-form textarea:focus,
+.new-rsvp-form select:focus {
+    outline: none;
+    border-color: #a5cca9;
+    background-color: #f7fdf0;
+}
+
+.new-rsvp-form input::placeholder,
+.new-rsvp-form textarea::placeholder {
+    color: #9cbda2;
+}
+
+/* Message Group */
+.message-group {
+    position: relative;
+}
+.smile-icon {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    font-size: 1.2rem;
+    color: #555;
+    cursor: pointer;
+}
+
+/* Guest Cards */
+.guest-cards {
+    display: flex;
+    gap: 15px;
+}
+
+.guest-card {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.guest-card input[type="radio"] {
+    display: none;
+}
+
+.guest-card .card-content {
+    position: relative;
+    height: 150px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.guest-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.guest-card .card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0 10px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    z-index: 2;
+}
+
+.guest-card:hover img {
+    transform: scale(1.05);
+}
+
+.guest-card input[type="radio"]:checked + .card-content {
+    border-color: #55875c;
+    box-shadow: 0 4px 10px rgba(85, 135, 92, 0.3);
+}
+
+/* Two columns row */
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.half-width {
+    flex: 1;
+    margin-bottom: 0 !important;
+}
+
+/* Custom Select */
+.custom-select-wrapper {
+    position: relative;
+}
+.custom-select-wrapper::after {
+    content: '\f078';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+    font-size: 0.8rem;
+}
+.custom-select-wrapper select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.send-btn {
+    padding: 16px;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    border-radius: 12px;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+    }
+    .guest-card .card-content {
+        height: 120px;
+    }
+}
+/* --- END NEW RSVP FORM --- */
+
 /* Gift Section */
 .gift-section {
     padding: 80px 0;
@@ -1424,9 +1598,8 @@ a {
 }
 
 .account-name {
-    font-weight: bold;
-    color: #333;
-    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
     margin-bottom: 20px;
 }
 
@@ -1483,7 +1656,7 @@ a {
 
 .qr-title {
     font-size: 0.95rem;
-    color: #666;
+    color: var(--text-muted);
     margin-bottom: 15px;
 }
 
