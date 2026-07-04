@@ -4,12 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quang Hưng & Kim Cúc - We're Getting Married</title>
+    <title>Quang Hưng & Kim Cúc</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./assets/images/favicon.png">
+    <link rel="apple-touch-icon" href="./assets/images/favicon.png">
 
     <!-- SEO Meta Tags -->
     <meta name="description" content="Trân trọng kính mời Quý khách đến tham dự lễ cưới của Quang Hưng và Kim Cúc">
     <meta property="og:title" content="Hưng & Cúc - We're Getting Married">
     <meta property="og:description" content="Trân trọng kính mời Quý khách đến tham dự lễ cưới">
+    <meta property="og:image" content="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/envelop/Screenshot_2026-05-16_095204_pw8jbt.png">
     <meta property="og:type" content="website">
 
     <!-- Fonts -->
@@ -22,7 +27,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Styles -->
+    <!-- CSS -->
     <link rel="stylesheet" href="./style.css">
 </head>
 
@@ -80,11 +85,11 @@
         <div class="hero-bg" style="background-image: url('./assets/images/lay.webp');">
             <div class="hero-overlay"></div>
         </div>
-        <div class="hero-content fade-in-up">
+        <div class="hero-content">
             <p class="hero-subtitle">LỄ THÀNH HÔN</p>
             <h1 class="hero-title">
                 <span class="name">Quang Hưng</span>
-                <span class="&">&</span>
+                <span class="ampersand">&</span>
                 <span class="name">Kim Cúc</span>
             </h1>
             <div class="hero-divider"></div>
@@ -355,19 +360,24 @@
         <div class="container">
             <p class="subtitle text-center">LỜI CHÚC</p>
             <h2 class="section-title text-center" style="margin-bottom: 50px;">Những Lời Chúc Tốt Đẹp</h2>
-            
+
             <div class="wishes-grid" id="wishesGrid">
                 <!-- Loading State -->
                 <div class="wish-loading text-center" id="wishesLoading">
-                    <i class="fa-solid fa-spinner fa-spin" style="font-size: 2rem; color: #55875c; margin-bottom: 10px;"></i>
+                    <i class="fa-solid fa-spinner fa-spin"
+                        style="font-size: 2rem; color: #55875c; margin-bottom: 10px;"></i>
                     <p>Đang tải những lời chúc ngọt ngào nhất...</p>
                 </div>
             </div>
-            
+
             <div class="wishes-actions text-center" style="margin-top: 40px;">
-                <button class="btn-primary" id="btnViewAllWishes" style="background-color: #55875c; display: none; padding: 12px 30px; font-weight: bold; font-size: 0.9rem;">XEM TẤT CẢ (0)</button>
+                <button class="btn-primary" id="btnViewAllWishes"
+                    style="background-color: #55875c; display: none; padding: 12px 30px; font-weight: bold; font-size: 0.9rem;">XEM
+                    TẤT CẢ (0)</button>
                 <div style="margin-top: 20px;">
-                    <a href="#rsvp" class="send-wish-link" style="color: #55875c; text-decoration: none; font-size: 0.9rem;"><i class="fa-solid fa-wand-magic-sparkles"></i> Gửi lời chúc cho cô dâu chú rể</a>
+                    <a href="#rsvp" class="send-wish-link"
+                        style="color: #55875c; text-decoration: none; font-size: 0.9rem;"><i
+                            class="fa-solid fa-wand-magic-sparkles"></i> Gửi lời chúc cho cô dâu chú rể</a>
                 </div>
             </div>
         </div>
@@ -384,7 +394,8 @@
                     <!-- Textarea for message -->
                     <div class="form-group message-group" style="position: relative;">
                         <textarea id="wishTextarea" name="message" rows="4"
-                            placeholder="Viết vài lời chúc thật dễ thương cho cô dâu, chú rể..." required style="resize: none;"></textarea>
+                            placeholder="Viết vài lời chúc thật dễ thương cho cô dâu, chú rể..." required
+                            style="resize: none;"></textarea>
                         <i class="fa-regular fa-face-smile smile-icon" id="emojiBtn"></i>
                         <emoji-picker id="emojiPicker" class="hidden-emoji-picker"></emoji-picker>
                     </div>

@@ -1,3 +1,6 @@
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwG_oLZzpU2qwn5qXkIWIo2tXPmhYMSs5eAezpb2OUPbF1CD-Mw0XVFTRAQ6G0HAbRO/exec';
+const initialWishesPromise = fetch(GOOGLE_SCRIPT_URL).then(res => res.json()).catch(err => ({ result: 'error', error: err }));
+
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Mobile Menu Toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
@@ -114,12 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. RSVP Form Submission to Google Sheets
+    // 5. Submit form RSVPs & Wishes
+    // GOOGLE_SCRIPT_URL has been moved to global scope for prefetching
     const rsvpForm = document.getElementById('rsvpForm');
     const formMessage = document.getElementById('formMessage');
-
-    // MÃ GOOGLE SCRIPT URL SẼ ĐƯỢC DÁN VÀO ĐÂY:
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwG_oLZzpU2qwn5qXkIWIo2tXPmhYMSs5eAezpb2OUPbF1CD-Mw0XVFTRAQ6G0HAbRO/exec';
 
     if (rsvpForm) {
         const submitBtn = rsvpForm.querySelector('button[type="submit"]');
@@ -206,11 +207,19 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     };
 
+    let isFirstLoad = true;
     const fetchWishes = () => {
         if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === '') return;
 
-        fetch(GOOGLE_SCRIPT_URL)
-            .then(res => res.json())
+        let fetchPromise;
+        if (isFirstLoad) {
+            fetchPromise = initialWishesPromise;
+            isFirstLoad = false;
+        } else {
+            fetchPromise = fetch(GOOGLE_SCRIPT_URL).then(res => res.json());
+        }
+
+        fetchPromise
             .then(data => {
                 if (data.result === 'success') {
                     // Đảo ngược lại (cũ nhất lên đầu) do Apps Script đang gửi mới nhất lên đầu
@@ -464,6 +473,10 @@ function openInvite() {
         if (overlay) {
             overlay.classList.add('hidden');
             document.body.classList.remove('no-scroll');
+            
+            // Kích hoạt hiệu ứng động cho ảnh và chữ
+            const heroSection = document.getElementById('home');
+            if(heroSection) heroSection.classList.add('animate-active');
         }
     }, 400);
 }
