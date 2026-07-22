@@ -38,9 +38,26 @@
             <h1 class="guest-name" id="guestName"></h1>
 
             <div class="envelope-wrapper" onclick="openInvite()">
-                <img class="envelope-img"
+                <img class="envelope-img" id="staticEnvelope"
                     src="https://pub-4ee034abad814cf5b2219f594c28724f.r2.dev/envelop/Screenshot_2026-05-16_095204_pw8jbt.png"
                     alt="Phong bì thiệp mời">
+                <div class="css-envelope" id="animatedEnvelope">
+                    <div class="env-back"></div>
+                    <div class="env-letter">
+                        <div class="letter-content">
+                            <p style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #55875c; margin: 0;">Save The Date</p>
+                            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #111d13; margin: 10px 0;">Quang Hưng & Kim Cúc</h3>
+                            <p style="font-size: 1.1rem; color: #55875c; font-weight: bold; margin: 0;">08.08.2026</p>
+                        </div>
+                    </div>
+                    <div class="env-front-left"></div>
+                    <div class="env-front-right"></div>
+                    <div class="env-front-bottom"></div>
+                    <div class="env-flap-wrapper">
+                        <div class="env-flap"></div>
+                        <div class="env-seal">❤</div>
+                    </div>
+                </div>
                 <svg class="click-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M12 11V4C12 2.89543 11.1046 2 10 2C8.89543 2 8 2.89543 8 4V14.5L5.70711 12.2071C5.31658 11.8166 4.68342 11.8166 4.29289 12.2071C3.90237 12.5976 3.90237 13.2308 4.29289 13.6213L9.58579 18.9142C10.3361 19.6645 11.3537 20.0858 12.4142 20.0858H16C17.6569 20.0858 19 18.7426 19 17.0858V11C19 9.89543 18.1046 9 17 9H16V7C16 5.89543 15.1046 5 14 5C12.8954 5 12 5.89543 12 7V11Z"
@@ -163,7 +180,7 @@
                         <h3>Quang Hưng</h3>
                         <div class="parents">
                             <p><br></p>
-                            <p>Con Bà <span>Nguyễn Thị Luyến</span></p>
+                            <p>Mẹ <span>Nguyễn Thị Luyến</span></p>
                         </div>
                         <div class="divider-small"></div>
                     </div>
@@ -178,7 +195,7 @@
                     <div class="person-info">
                         <h3>Kim Cúc</h3>
                         <div class="parents">
-                            <p>Con Ông <span>Bùi Huy Hoàng</span><br>và Bà <span>Nguyễn Thị Tuyết</span></p>
+                            <p>Bố <span>Bùi Huy Hoàng</span><br>Mẹ <span>Nguyễn Thị Tuyết</span></p>
                         </div>
                         <div class="divider-small"></div>
                     </div>
@@ -213,7 +230,7 @@
                         <div class="details">
                             <div class="detail-item">
                                 <i class="fa-regular fa-clock"></i>
-                                <span>9:00 - 10:30</span>
+                                <span>14:00</span>
                             </div>
                             <div class="detail-item">
                                 <i class="fa-solid fa-location-dot"></i>
@@ -240,7 +257,7 @@
                         <div class="details">
                             <div class="detail-item">
                                 <i class="fa-regular fa-clock"></i>
-                                <span>11:00 - 14:00</span>
+                                <span>15:00</span>
                             </div>
                             <div class="detail-item">
                                 <i class="fa-solid fa-location-dot"></i>
@@ -257,19 +274,7 @@
                 </div>
             </div>
 
-            <!-- Dress Code -->
-            <!-- <div class="dresscode-box fade-in-up">
-                <div class="icon-wrapper">
-                    <i class="fa-solid fa-shirt"></i>
-                </div>
-                <h3>MÀU TRANG PHỤC</h3>
-                <p>(Dress Code)</p>
-                <div class="colors">
-                    <div class="color-circle" style="background-color: #ffffff; border: 1px solid #ddd;"></div>
-                    <div class="color-circle" style="background-color: #f5f5dc;"></div>
-                    <div class="color-circle" style="background-color: #3b2f2f;"></div>
-                </div>
-            </div> -->
+
         </div>
     </section>
 
@@ -292,6 +297,9 @@
                     <div class="gm-col"><img src="./assets/images/wd/21072.jpg"></div>
                     <div class="gm-col"><img src="./assets/images/wd/21074.jpg"></div>
                     <div class="gm-col"><img src="./assets/images/wd/21075.jpg"></div>
+                    <div class="gm-col"><img src="./assets/images/wd/21074.jpg"></div>
+                    <div class="gm-col"><img src="./assets/images/wd/21075.jpg"></div>
+                    <div class="gm-col"><img src="./assets/images/wd/21072.jpg"></div>
 
 
                 </div>
@@ -336,7 +344,7 @@
     </section>
 
     <!-- Video Section -->
-    <section class="video-section">
+    <!-- <section class="video-section">
         <div class="container text-center">
             <div class="section-header fade-in-up">
                 <h2 class="title">Video Cưới</h2>
@@ -350,7 +358,7 @@
                     allowfullscreen></iframe>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- Wishes Section -->
     <section class="wishes-section fade-in-up" id="wishes">
@@ -498,12 +506,12 @@
                                 <div class="bank-info">
                                     <p class="label">Số tài khoản</p>
                                     <div class="account-number">
-                                        <span>000000</span>
-                                        <button class="copy-btn" data-copy="000000"><i
+                                        <span>0355310099</span>
+                                        <button class="copy-btn" data-copy="0355310099"><i
                                                 class="fa-regular fa-copy"></i></button>
                                     </div>
                                     <p class="label mt-3">Chủ tài khoản</p>
-                                    <p class="account-name">TRAN QUANG HUNG</p>
+                                    <p class="account-name">BUI THI KIM CUC</p>
                                     <button class="qr-btn"><i class="fa-solid fa-hand-point-right"></i> Bấm để xem mã
                                         QR</button>
                                 </div>
@@ -511,7 +519,7 @@
                         </div>
                         <div class="gift-card-back">
                             <p class="qr-title">Quét mã để mừng cưới</p>
-                            <img src="./assets/images/qr/qr1.jpg" alt="QR Code">
+                            <img src="./assets/images/qr/qr_cuc.jpg" alt="QR Code">
                             <button class="qr-back-btn"><i class="fa-solid fa-hand-point-left"></i> Bấm để quay
                                 lại</button>
                         </div>
@@ -602,7 +610,6 @@
             <p class="thank-you-subtext">Sự hiện diện và những lời chúc của Quý khách là niềm hạnh phúc lớn đối với gia
                 đình chúng tôi.
                 <br>
-                Lướt đọc đến đây thôi nhá, mấy nữa có ảnh cưới rồi thì demo tiếp cho nha
             </p>
         </div>
     </section>

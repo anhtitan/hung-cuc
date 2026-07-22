@@ -290,7 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. Countdown Timer
     const countdown = () => {
-        const countDate = new Date("Aug 8, 2026 00:00:00").getTime();
+        const countDate = new Date("Aug 8, 2026 14:00:00").getTime();
         const now = new Date().getTime();
         const gap = countDate - now;
 
@@ -463,6 +463,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (overlay && guestNameEl) {
         if (guest) {
             guestNameEl.textContent = guest;
+            
+            // Cập nhật thẻ meta SEO và Open Graph
+            const ogDesc = document.querySelector('meta[property="og:description"]');
+            const metaDesc = document.querySelector('meta[name="description"]');
+            const customText = `Trân trọng kính mời ${guest} đến tham dự lễ cưới của Quang Hưng và Kim Cúc`;
+            
+            if (ogDesc) ogDesc.setAttribute('content', customText);
+            if (metaDesc) metaDesc.setAttribute('content', customText);
         } else {
             guestNameEl.textContent = 'Các vị khách quý';
         }
@@ -478,10 +486,28 @@ function openInvite() {
     window.scrollTo(0, 0);
 
     if (wrapper) {
-        wrapper.style.transform = 'scale(1.2)';
-        wrapper.style.opacity = '0';
+        const staticEnv = document.getElementById('staticEnvelope');
+        const animatedEnv = document.getElementById('animatedEnvelope');
+        
+        if (staticEnv && animatedEnv) {
+            staticEnv.style.display = 'none';
+            animatedEnv.style.display = 'block';
+            
+            // Ép trình duyệt render lại trước khi add class open
+            void animatedEnv.offsetWidth;
+        }
+
+        // 1. Thêm class open để kích hoạt hiệu ứng lật nắp thiệp
+        wrapper.classList.add('open');
+        
+        // 2. Chờ 1.2s cho hiệu ứng mở thiệp chạy xong rồi mới phóng to mờ dần
+        setTimeout(() => {
+            wrapper.style.transform = 'scale(1.2)';
+            wrapper.style.opacity = '0';
+        }, 1200);
     }
 
+    // 3. Chờ thêm 500ms nữa (tổng 1700ms) để đóng hẳn overlay
     setTimeout(() => {
         if (overlay) {
             overlay.classList.add('hidden');
@@ -491,5 +517,5 @@ function openInvite() {
             const heroSection = document.getElementById('home');
             if (heroSection) heroSection.classList.add('animate-active');
         }
-    }, 400);
+    }, 1600);
 }

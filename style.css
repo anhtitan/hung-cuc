@@ -1020,9 +1020,6 @@ a {
 .box-images img {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 8px;
-    /* Khử răng cưa (nét đứt) bằng cách làm mềm nhẹ khi ảnh lớn bị thu nhỏ quá mức */
-    filter: blur(0.3px);
-    transform: perspective(1px) translateZ(0);
 }
 
 .gallery-masonry-1 img:hover,
@@ -1364,6 +1361,10 @@ a {
     border-radius: 8px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-x pan-y; /* Cho phép thao tác zoom tự nhiên của trình duyệt */
+    will-change: transform;
+    transform: translateZ(0); /* Ép trình duyệt render ảnh trên một layer độc lập giữ nguyên độ nét */
 }
 
 .lightbox-close {
@@ -1900,11 +1901,16 @@ body.no-scroll {
 
 .invite-container .envelope-wrapper {
     position: relative;
-    width: 450px;
+    width: 400px;
     max-width: 90%;
     margin: 0 auto 60px;
     cursor: pointer;
-    transition: all 0.4s ease;
+    perspective: 1500px; 
+    transition: transform 0.3s ease;
+}
+
+.invite-container .envelope-wrapper:not(.open):hover {
+    transform: scale(1.05);
 }
 
 .invite-container .envelope-img {
@@ -1917,17 +1923,101 @@ body.no-scroll {
 }
 
 @keyframes breathe {
-
-    0%,
-    100% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.03);
-    }
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
 }
 
+/* CSS ENVELOPE DESIGN */
+.css-envelope {
+    display: none; /* Ẩn đi mặc định */
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.5; 
+    margin: 0 auto;
+    background-color: #7a8d71; 
+    border-radius: 4px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.env-back {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #7a8d71; 
+    border-radius: 4px;
+}
+
+.env-letter {
+    position: absolute;
+    top: 5%; left: 5%; width: 90%; height: 90%;
+    background: #fff;
+    border-radius: 4px;
+    z-index: 2;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.env-front-left {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: #8da083;
+    clip-path: polygon(0 0, 50% 50%, 0 100%);
+    z-index: 3; pointer-events: none;
+}
+
+.env-front-right {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: #8da083;
+    clip-path: polygon(100% 0, 50% 50%, 100% 100%);
+    z-index: 3; pointer-events: none;
+}
+
+.env-front-bottom {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: #9ab092; 
+    clip-path: polygon(0 100%, 50% 50%, 100% 100%);
+    z-index: 4; pointer-events: none;
+}
+
+.env-flap-wrapper {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 5;
+    transform-origin: top;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.2s;
+    transform-style: preserve-3d;
+}
+
+.env-flap {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: #a3b89b;
+    clip-path: polygon(0 0, 100% 0, 50% 60%);
+    backface-visibility: hidden; 
+}
+
+.env-seal {
+    position: absolute;
+    top: 60%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45px; height: 45px;
+    background: radial-gradient(circle, #e2c044, #a3821a);
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+}
+
+.envelope-wrapper.open .env-flap-wrapper {
+    transform: rotateX(180deg);
+    z-index: 1; 
+}
+
+.envelope-wrapper.open .env-letter {
+    transform: translateY(-40%);
+    z-index: 4; 
+}
 .invite-container .click-icon {
     position: absolute;
     top: 70%;
@@ -1979,7 +2069,7 @@ body.no-scroll {
 /* --- WISHES SECTION --- */
 .wishes-section {
     padding: 80px 0;
-    background-color: var(--bg-light);
+    background-color: var(--bg-secondary);
 }
 
 .wishes-grid {
