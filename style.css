@@ -2076,31 +2076,33 @@ body.no-scroll {
     height: 700px;
     overflow: hidden;
     position: relative;
-    /* Loại bỏ mask-image trên mobile vì nó gây lỗi quá tải bộ nhớ đồ họa (làm trắng khung) trên iPhone */
     -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
     mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
-}
-
-@media (max-width: 768px) {
-    .wishes-marquee-container {
-        -webkit-mask-image: none;
-        mask-image: none;
-        height: 500px; /* Thu gọn chiều cao trên điện thoại */
-    }
 }
 
 .wishes-marquee-track {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    animation: marqueeVertical 35s linear infinite;
-    will-change: transform; /* Tối ưu hóa render */
+    animation: marqueeVertical 40s linear infinite;
+    transform: translate3d(0,0,0); /* Khắc phục lỗi biến mất trên iOS/Safari */
 }
 
-/* Chỉ tạm dừng khi di chuột trên máy tính. Bỏ qua trên điện thoại để tránh lỗi chạm vuốt làm kẹt hiệu ứng */
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
     .wishes-marquee-track:hover {
         animation-play-state: paused;
+    }
+}
+
+@media (max-width: 768px) {
+    .wishes-marquee-container {
+        -webkit-mask-image: none;
+        mask-image: none;
+        height: 500px;
+    }
+    .wishes-marquee-track {
+        /* Cần tốc độ chậm hơn (70s) trên mobile vì thẻ bị xếp thành 1 cột dọc rất dài */
+        animation: marqueeVertical 70s linear infinite; 
     }
 }
 
