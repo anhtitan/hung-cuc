@@ -2105,6 +2105,12 @@ body.no-scroll {
     margin: 0 auto;
 }
 
+@media (max-width: 768px) {
+    .wishes-grid {
+        grid-template-columns: 1fr; /* Ép hiển thị 1 hàng 1 lời chúc trên điện thoại */
+    }
+}
+
 .wish-card {
     background: var(--white);
     border-radius: 10px;
