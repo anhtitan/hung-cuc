@@ -222,22 +222,28 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchPromise
             .then(data => {
                 if (data.result === 'success') {
-                    // Đảo ngược lại (cũ nhất lên đầu) do Apps Script đang gửi mới nhất lên đầu
-                    const wishes = data.data.reverse();
+                    // Giữ nguyên mảng (mới nhất lên đầu) từ Apps Script
+                    const wishes = data.data;
                     if (wishesLoading) wishesLoading.style.display = 'none';
 
                     if (wishes.length === 0) {
-                        if (wishesGrid) wishesGrid.innerHTML = '<p class="text-center" style="grid-column: 1/-1; color: #666;">Chưa có lời chúc nào. Hãy là người đầu tiên gửi lời chúc nhé!</p>';
+                        const wishesGrid1 = document.getElementById('wishesGrid1');
+                        if (wishesGrid1) wishesGrid1.innerHTML = '<p class="text-center" style="grid-column: 1/-1; color: #666;">Chưa có lời chúc nào. Hãy là người đầu tiên gửi lời chúc nhé!</p>';
                         return;
                     }
 
-                    // Hiển thị 6 lời chúc mới nhất (đã được sắp xếp ngược từ Apps Script)
+                    // Hiển thị tất cả lời chúc (hoặc tối đa 20 lời chúc mới nhất để cuộn)
                     let htmlPreview = '';
-                    const previewCount = Math.min(wishes.length, 6);
+                    const previewCount = Math.min(wishes.length, 20);
                     for (let i = 0; i < previewCount; i++) {
                         htmlPreview += createWishCard(wishes[i]);
                     }
-                    if (wishesGrid) wishesGrid.innerHTML = htmlPreview;
+                    
+                    const wishesGrid1 = document.getElementById('wishesGrid1');
+                    const wishesGrid2 = document.getElementById('wishesGrid2');
+                    
+                    if (wishesGrid1) wishesGrid1.innerHTML = htmlPreview;
+                    if (wishesGrid2) wishesGrid2.innerHTML = htmlPreview; // Nhân bản để cuộn vòng tròn
 
                     // Render Modal
                     if (wishes.length > 0) {

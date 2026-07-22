@@ -366,12 +366,19 @@
             <p class="subtitle text-center">LỜI CHÚC</p>
             <h2 class="section-title text-center" style="margin-bottom: 50px;">Những Lời Chúc Tốt Đẹp</h2>
 
-            <div class="wishes-grid" id="wishesGrid">
-                <!-- Loading State -->
-                <div class="wish-loading text-center" id="wishesLoading">
-                    <i class="fa-solid fa-spinner fa-spin"
-                        style="font-size: 2rem; color: #55875c; margin-bottom: 10px;"></i>
-                    <p>Đang tải những lời chúc ngọt ngào nhất...</p>
+            <div class="wishes-marquee-container">
+                <div class="wishes-marquee-track" id="wishesMarqueeTrack">
+                    <!-- Grid 1 -->
+                    <div class="wishes-grid" id="wishesGrid1">
+                        <!-- Loading State -->
+                        <div class="wish-loading text-center" id="wishesLoading">
+                            <i class="fa-solid fa-spinner fa-spin"
+                                style="font-size: 2rem; color: #55875c; margin-bottom: 10px;"></i>
+                            <p>Đang tải những lời chúc ngọt ngào nhất...</p>
+                        </div>
+                    </div>
+                    <!-- Grid 2 (Duplicate for seamless loop) -->
+                    <div class="wishes-grid" id="wishesGrid2"></div>
                 </div>
             </div>
 

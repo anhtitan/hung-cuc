@@ -2072,6 +2072,31 @@ body.no-scroll {
     background-color: var(--bg-secondary);
 }
 
+.wishes-marquee-container {
+    height: 700px;
+    overflow: hidden;
+    position: relative;
+    /* Hiệu ứng mờ dần ở hai đầu để trông cuộn mượt hơn */
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 5%, black 95%, transparent);
+}
+
+.wishes-marquee-track {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    animation: marqueeVertical 35s linear infinite;
+}
+
+.wishes-marquee-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes marqueeVertical {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(calc(-50% - 15px)); } 
+}
+
 .wishes-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
