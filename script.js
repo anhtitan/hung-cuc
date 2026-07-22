@@ -1,4 +1,5 @@
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwG_oLZzpU2qwn5qXkIWIo2tXPmhYMSs5eAezpb2OUPbF1CD-Mw0XVFTRAQ6G0HAbRO/exec';
+const _0x4f2a = ['aHR0cHM6Ly9zY3JpcHQu', 'Z29vZ2xlLmNvbS9tYWNy', 'b3Mvcy9BS2Z5Y2J3R19v', 'TFp6cFUycXduNXFYa0lX', 'SW8ydFhQbWhZTVNzNWVB', 'ZXpwYjJPVVBiRjFDRC1N', 'dzBYVkZUUkFRNkcwSEFi', 'Uk8vZXhlYw=='];
+const GOOGLE_SCRIPT_URL = atob(_0x4f2a.join(''));
 const initialWishesPromise = fetch(GOOGLE_SCRIPT_URL).then(res => res.json()).catch(err => ({ result: 'error', error: err }));
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -148,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        rsvpForm.addEventListener('submit', (e) => {
+        rsvpForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const btn = rsvpForm.querySelector('button[type="submit"]');
@@ -159,8 +160,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const formData = new FormData(rsvpForm);
 
+            // Thuật toán chống Replay Attack (Nonce + Timestamp + Token)
+            const nonce = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2);
+            const timestamp = Date.now().toString();
+            
+            const _0xkey = ['V0VERElOR1', '9IQ18yMDI2X', '1NFQ1VSRV', '9LRVk='];
+            const secret = atob(_0xkey.join(''));
+            
+            const message = nonce + timestamp + secret;
+            const encoder = new TextEncoder();
+            const data = encoder.encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const token = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+            formData.append('nonce', nonce);
+            formData.append('timestamp', timestamp);
+            formData.append('token', token);
+            formData.append('apiKey', secret);
+
             if (GOOGLE_SCRIPT_URL === '') {
-                // Giả lập nếu chưa có link Google Script
+                // Giả lập 
                 setTimeout(() => {
                     formMessage.innerText = 'Cảm ơn bạn!';
                     formMessage.style.display = 'block';
@@ -171,14 +191,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.disabled = false;
                 }, 1000);
             } else {
-                // Gửi dữ liệu thật (Fire and forget)
+                //reall
                 fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     mode: 'no-cors',
                     body: formData
                 }).catch(err => console.error('Lỗi ngầm:', err));
 
-                // Báo thành công ngay lập tức để người dùng không phải đợi Google phản hồi (Optimistic UI)
+                // thanh cong
                 setTimeout(() => {
                     const guestName = formData.get('name') || 'bạn';
                     const attendance = formData.get('attendance');
@@ -199,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const thankYouUI = document.getElementById('thankYouUI');
                     if (thankYouUI) thankYouUI.style.display = 'block';
 
-                    // --- Cập nhật lời chúc lên giao diện ngay lập tức ---
+                    // cap nhat loi chuc--
                     let messageText = formData.get('message') || '';
                     if (messageText.trim() !== '') {
                         const newWishHtml = `
@@ -215,20 +235,20 @@ document.addEventListener('DOMContentLoaded', () => {
                                 </div>
                             </div>
                         `;
-                        
+
                         const grid1 = document.getElementById('wishesGrid1');
                         const grid2 = document.getElementById('wishesGrid2');
                         const modalList = document.getElementById('wishesModalList');
-                        
-                        // Xóa dòng "Chưa có lời chúc nào" nếu có
+
+                        // Xóa dòng "Chưa có lời chúc nào" (lúc khởi tạo đầu tien)
                         if (grid1 && grid1.innerHTML.includes('Chưa có lời chúc nào')) {
                             grid1.innerHTML = '';
                             if (grid2) grid2.innerHTML = '';
                         }
-                        
+
                         if (grid1) grid1.insertAdjacentHTML('afterbegin', newWishHtml);
                         if (grid2) grid2.insertAdjacentHTML('afterbegin', newWishHtml);
-                        
+
                         if (window.allFetchedWishes) {
                             window.allFetchedWishes.unshift({
                                 name: guestName,
@@ -240,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         } else {
                             if (modalList) modalList.insertAdjacentHTML('afterbegin', newWishHtml);
                         }
-                        
+
                         const countEl = document.getElementById('wishesTotalCount');
                         if (countEl) {
                             let currentCount = parseInt(countEl.innerText.replace(/[^0-9]/g, '')) || 0;
@@ -254,7 +274,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             void track.offsetWidth; // Ép trình duyệt cập nhật thay đổi (reflow)
                             track.classList.add('run-animation');
                         }
-                        
+
                         // Tự động cuộn nhẹ màn hình xuống khu vực lời chúc
                         const container = document.querySelector('.wishes-marquee-container');
                         if (container) {
@@ -266,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     rsvpForm.reset();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-                }, 800); // Báo thành công chỉ sau chưa tới 1 giây
+                }, 800); // thanh cong
             }
         });
     }
@@ -276,13 +296,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalList = document.getElementById('wishesModalList');
         const sortSelect = document.getElementById('wishesSortSelect');
         if (!modalList || !window.allFetchedWishes) return;
-        
+
         let order = sortSelect ? sortSelect.value : 'newest';
         let sorted = [...window.allFetchedWishes];
         if (order === 'oldest') {
             sorted.reverse();
         }
-        
+
         let htmlAll = '';
         sorted.forEach(wish => {
             htmlAll += createWishCard(wish);
@@ -350,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    // Hiển thị tối đa 10 lời chúc để khung cuộn không quá dài gây lỗi trên Safari
+                    // Hiển thị 21 lc
                     let htmlPreview = '';
                     const previewCount = Math.min(wishes.length, 21);
                     for (let i = 0; i < previewCount; i++) {
