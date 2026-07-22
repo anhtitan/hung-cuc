@@ -45,8 +45,12 @@
                     <div class="env-back"></div>
                     <div class="env-letter">
                         <div class="letter-content">
-                            <p style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #55875c; margin: 0;">Save The Date</p>
-                            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #111d13; margin: 10px 0;">Quang Hưng & Kim Cúc</h3>
+                            <p
+                                style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #55875c; margin: 0;">
+                                Save The Date</p>
+                            <h3
+                                style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #111d13; margin: 10px 0;">
+                                Quang Hưng & Kim Cúc</h3>
                             <p style="font-size: 1.1rem; color: #55875c; font-weight: bold; margin: 0;">08.08.2026</p>
                         </div>
                     </div>
@@ -173,7 +177,7 @@
                 <!-- Groom -->
                 <div class="person groom fade-in-left">
                     <div class="image-wrapper">
-                        <img src="./assets/images/wd/21078.jpg" alt="Chú rể Hưng" class="person-img">
+                        <img src="./assets/images/groom.jpg" alt="Chú rể Hưng" class="person-img">
                         <div class="img-overlay"></div>
                     </div>
                     <div class="person-info">
@@ -189,7 +193,7 @@
                 <!-- Bride -->
                 <div class="person bride fade-in-right">
                     <div class="image-wrapper">
-                        <img src="./assets/images/wd/21076.jpg" alt="Cô dâu Cúc" class="person-img">
+                        <img src="./assets/images/bride.jpg" alt="Cô dâu Cúc" class="person-img">
                         <div class="img-overlay"></div>
                     </div>
                     <div class="person-info">
@@ -406,38 +410,10 @@
                     <!-- Textarea for message -->
                     <div class="form-group message-group" style="position: relative;">
                         <textarea id="wishTextarea" name="message" rows="4"
-                            placeholder="Viết vài lời chúc thật dễ thương cho cô dâu, chú rể..." required
+                            placeholder="Gửi lời chúc phúc đến cô dâu, chú rể..." required
                             style="resize: none;"></textarea>
                         <i class="fa-regular fa-face-smile smile-icon" id="emojiBtn"></i>
                         <emoji-picker id="emojiPicker" class="hidden-emoji-picker"></emoji-picker>
-                    </div>
-
-                    <!-- Who invited you -->
-                    <div class="form-group guest-of-group text-left">
-                        <label class="form-label">Bạn là khách mời của ai?</label>
-                        <div class="guest-cards">
-                            <label class="guest-card">
-                                <input type="radio" name="guestOf" value="Chú rể" required>
-                                <div class="card-content">
-                                    <img src="./assets/images/groom.png" alt="Chú rể">
-                                    <div class="card-overlay">Chú rể</div>
-                                </div>
-                            </label>
-                            <label class="guest-card">
-                                <input type="radio" name="guestOf" value="Cô dâu">
-                                <div class="card-content">
-                                    <img src="./assets/images/bride.png" alt="Cô dâu">
-                                    <div class="card-overlay">Cô dâu</div>
-                                </div>
-                            </label>
-                            <label class="guest-card">
-                                <input type="radio" name="guestOf" value="Cả hai">
-                                <div class="card-content">
-                                    <img src="./assets/images/wd/21074.jpg" alt="Cả hai">
-                                    <div class="card-overlay">Cả hai</div>
-                                </div>
-                            </label>
-                        </div>
                     </div>
 
                     <!-- Name and Nickname -->
@@ -446,11 +422,34 @@
                         <input type="text" name="name" placeholder="Nguyễn Văn A" required>
                     </div>
 
-                    <div class="form-group text-left">
-                        <label class="form-label">Biệt danh</label>
-                        <input type="text" name="nickname"
-                            placeholder="VD: Bạn cấp 3 của cô dâu, Bạn đồng nghiệp của chú rể ...">
+                    <!-- Who invited you -->
+                    <div class="form-group guest-of-group text-left">
+                        <label class="form-label">Bạn là khách mời của ai?*</label>
+                        <div class="guest-cards">
+                            <label class="guest-card">
+                                <input type="radio" name="guestOf" value="Chú rể" required>
+                                <div class="card-content">
+                                    <img src="./assets/images/groom.jpg" alt="Chú rể">
+                                    <div class="card-overlay">Chú rể</div>
+                                </div>
+                            </label>
+                            <label class="guest-card">
+                                <input type="radio" name="guestOf" value="Cô dâu">
+                                <div class="card-content">
+                                    <img src="./assets/images/bride.jpg" alt="Cô dâu">
+                                    <div class="card-overlay">Cô dâu</div>
+                                </div>
+                            </label>
+                            <label class="guest-card">
+                                <input type="radio" name="guestOf" value="Cả hai">
+                                <div class="card-content">
+                                    <img src="./assets/images/wd/21073.jpg" alt="Cả hai">
+                                    <div class="card-overlay">Cả hai</div>
+                                </div>
+                            </label>
+                        </div>
                     </div>
+
 
                     <!-- Attendance and Guest Count -->
                     <div class="form-row">
@@ -503,7 +502,7 @@
                     <div class="gift-card-inner">
                         <div class="gift-card-front">
                             <div class="gift-card-header">
-                                <img src="./assets/images/groom.png" alt="Chú rể">
+                                <img src="./assets/images/groom.jpg" alt="Chú rể">
                                 <div class="gift-card-title">
                                     <h3>MB Bank</h3>
                                     <p>Chú rể</p>
@@ -538,7 +537,7 @@
                     <div class="gift-card-inner">
                         <div class="gift-card-front">
                             <div class="gift-card-header">
-                                <img src="./assets/images/bride.png" alt="Cô dâu">
+                                <img src="./assets/images/bride.jpg" alt="Cô dâu">
                                 <div class="gift-card-title">
                                     <h3>MB Bank</h3>
                                     <p>Cô dâu</p>

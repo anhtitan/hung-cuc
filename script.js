@@ -123,6 +123,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const formMessage = document.getElementById('formMessage');
 
     if (rsvpForm) {
+        // Tự động nhảy số người tham dự
+        const attendanceSelect = rsvpForm.querySelector('select[name="attendance"]');
+        const guestCountSelect = rsvpForm.querySelector('select[name="guestCount"]');
+        
+        if (attendanceSelect && guestCountSelect) {
+            attendanceSelect.addEventListener('change', function() {
+                if (this.value === 'Không') {
+                    guestCountSelect.value = '0';
+                    guestCountSelect.style.pointerEvents = 'none';
+                    guestCountSelect.style.opacity = '0.6';
+                } else if (this.value === 'Có') {
+                    guestCountSelect.style.pointerEvents = 'auto';
+                    guestCountSelect.style.opacity = '1';
+                    guestCountSelect.value = '1';
+                }
+            });
+        }
+
         const submitBtn = rsvpForm.querySelector('button[type="submit"]');
         submitBtn.addEventListener('click', () => {
             if (!rsvpForm.checkValidity()) {
@@ -249,7 +267,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     const track = document.getElementById('wishesMarqueeTrack');
                     if (track) {
                         void track.offsetHeight;
-                        track.classList.add('run-animation');
+                        
+                        // Dùng IntersectionObserver để theo dõi khi nào người dùng cuộn tới Lời chúc
+                        const observer = new IntersectionObserver((entries) => {
+                            if (entries[0].isIntersecting) {
+                                // Đợi 1 giây (1000ms) sau khi nhìn thấy mới bắt đầu cuộn
+                                setTimeout(() => {
+                                    track.classList.add('run-animation');
+                                }, 1000);
+                                // Ngắt theo dõi để chỉ kích hoạt 1 lần duy nhất
+                                observer.disconnect();
+                            }
+                        }, { threshold: 0.2 }); // Kích hoạt khi cuộn tới 20% phần lời chúc
+                        
+                        observer.observe(track);
                     }
 
                     // Render Modal

@@ -22,7 +22,7 @@
 }
 
 img {
-    /* Đã gỡ bỏ transform: translateZ(0) vì nó tắt tính năng khử răng cưa của trình duyệt khi thu nhỏ ảnh */
+
     image-rendering: auto;
 }
 
@@ -317,9 +317,10 @@ a {
 }
 
 .hero-title .ampersand {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     font-style: normal;
-    color: var(--primary-color);
+    /* color: var(--primary-color); */
+    color: #a4c2a4;
     margin: 10px 0;
     display: block;
     transform: scale(0.5) skewX(-12deg);
@@ -423,7 +424,7 @@ a {
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 945px) {
 
     .hero-title .name,
     .hero-title .ampersand {
@@ -455,7 +456,7 @@ a {
 @media (max-width: 768px) {
     .hero-curve svg {
         height: 40px;
-        /* Làm bẹt khung viền trên điện thoại để không bị méo */
+        /* fix display */
     }
 }
 
@@ -1119,7 +1120,7 @@ a {
 }
 
 .rsvp-form-container {
-    max-width: 700px; /* Tăng chiều ngang của form */
+    max-width: 700px;
     margin: 0 auto;
     background: #fff;
     padding: 40px;
@@ -1192,7 +1193,7 @@ a {
     color: #fff;
 }
 
-/* Trên màn hình máy tính, phóng to ảnh lên 115% để có khoảng trống dịch chuyển sang phải */
+/* a */
 @media (min-width: 768px) {
     .countdown-section {
         background-size: 115vw auto;
@@ -1362,9 +1363,11 @@ a {
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
     user-select: none;
     -webkit-user-select: none;
-    touch-action: pan-x pan-y; /* Cho phép thao tác zoom tự nhiên của trình duyệt */
+    touch-action: pan-x pan-y;
+    /* Cho phép thao tác zoom tự nhiên của trình duyệt */
     will-change: transform;
-    transform: translateZ(0); /* Ép trình duyệt render ảnh trên một layer độc lập giữ nguyên độ nét */
+    transform: translateZ(0);
+    /* Ép trình duyệt render ảnh trên một layer độc lập giữ nguyên độ nét */
 }
 
 .lightbox-close {
@@ -1522,13 +1525,21 @@ a {
 }
 
 .guest-card input[type="radio"] {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }
 
 .guest-card .card-content {
     position: relative;
+    width: 100%;
     aspect-ratio: 3/4;
-    /* Đổi thành khung dọc thay vì cố định 150px */
     border-radius: 12px;
     overflow: hidden;
     border: 3px solid transparent;
@@ -1536,15 +1547,15 @@ a {
 }
 
 .guest-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: top;
-    /* Lấy từ phần đầu người trở xuống */
+    object-position: center;
     display: block;
     transition: transform 0.3s ease;
-    transform: scale(1.9);
-    /* Phóng to mặc định luôn để lấp đầy khung */
 }
 
 .guest-card .card-overlay {
@@ -1562,7 +1573,7 @@ a {
 }
 
 .guest-card:hover img {
-    transform: scale(2);
+    transform: scale(1.1);
 }
 
 .guest-card input[type="radio"]:checked+.card-content {
@@ -1618,8 +1629,14 @@ a {
         flex-direction: column;
     }
 
+    .guest-cards {
+        gap: 10px;
+    }
+
     .guest-card .card-content {
-        height: 120px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3/4;
     }
 }
 
@@ -1905,7 +1922,7 @@ body.no-scroll {
     max-width: 90%;
     margin: 0 auto 60px;
     cursor: pointer;
-    perspective: 1500px; 
+    perspective: 1500px;
     transition: transform 0.3s ease;
 }
 
@@ -1923,36 +1940,51 @@ body.no-scroll {
 }
 
 @keyframes breathe {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.03); }
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
 }
 
 /* CSS ENVELOPE DESIGN */
 .css-envelope {
-    display: none; /* Ẩn đi mặc định */
+    display: none;
+    /* Ẩn đi mặc định */
     position: relative;
     width: 100%;
-    aspect-ratio: 1.5; 
+    aspect-ratio: 1.5;
     margin: 0 auto;
-    background-color: #7a8d71; 
+    background-color: #7a8d71;
     border-radius: 4px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
 .env-back {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background-color: #7a8d71; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #7a8d71;
     border-radius: 4px;
 }
 
 .env-letter {
     position: absolute;
-    top: 5%; left: 5%; width: 90%; height: 90%;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
     background: #fff;
     border-radius: 4px;
     z-index: 2;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.5s;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1960,28 +1992,47 @@ body.no-scroll {
 }
 
 .env-front-left {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: #8da083;
     clip-path: polygon(0 0, 50% 50%, 0 100%);
-    z-index: 3; pointer-events: none;
+    z-index: 3;
+    pointer-events: none;
 }
 
 .env-front-right {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: #8da083;
     clip-path: polygon(100% 0, 50% 50%, 100% 100%);
-    z-index: 3; pointer-events: none;
+    z-index: 3;
+    pointer-events: none;
 }
 
 .env-front-bottom {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: #9ab092; 
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #9ab092;
     clip-path: polygon(0 100%, 50% 50%, 100% 100%);
-    z-index: 4; pointer-events: none;
+    z-index: 4;
+    pointer-events: none;
 }
 
 .env-flap-wrapper {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: 5;
     transform-origin: top;
     transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.2s;
@@ -1989,20 +2040,26 @@ body.no-scroll {
 }
 
 .env-flap {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: #a3b89b;
     clip-path: polygon(0 0, 100% 0, 50% 60%);
-    backface-visibility: hidden; 
+    backface-visibility: hidden;
 }
 
 .env-seal {
     position: absolute;
-    top: 60%; left: 50%;
+    top: 60%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    width: 45px; height: 45px;
+    width: 45px;
+    height: 45px;
     background: radial-gradient(circle, #e2c044, #a3821a);
     border-radius: 50%;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2011,13 +2068,14 @@ body.no-scroll {
 
 .envelope-wrapper.open .env-flap-wrapper {
     transform: rotateX(180deg);
-    z-index: 1; 
+    z-index: 1;
 }
 
 .envelope-wrapper.open .env-letter {
     transform: translateY(-40%);
-    z-index: 4; 
+    z-index: 4;
 }
+
 .invite-container .click-icon {
     position: absolute;
     top: 70%;
@@ -2084,10 +2142,11 @@ body.no-scroll {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    transform: translate3d(0,0,0); /* Khắc phục lỗi biến mất trên iOS/Safari */
+    transform: translate3d(0, 0, 0);
+    /* fix iOS/Safari */
 }
 
-/* Chỉ thêm class này bằng JS sau khi đã render xong HTML để tránh lỗi tính sai kích thước trên iOS */
+/* fix iOS */
 .wishes-marquee-track.run-animation {
     animation: marqueeVertical 40s linear infinite;
 }
@@ -2104,28 +2163,41 @@ body.no-scroll {
         mask-image: none;
         height: 500px;
     }
+
     .wishes-marquee-track.run-animation {
-        /* Cần tốc độ chậm hơn (70s) trên mobile vì thẻ bị xếp thành 1 cột dọc rất dài */
-        animation: marqueeVertical 70s linear infinite; 
+        /*fix */
+        animation: marqueeVertical 70s linear infinite;
     }
 }
 
 @keyframes marqueeVertical {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(calc(-50% - 15px)); } 
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(calc(-50% - 15px));
+    }
 }
 
 .wishes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
     max-width: 1000px;
     margin: 0 auto;
+    padding-top: 40px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1020px) {
     .wishes-grid {
-        grid-template-columns: 1fr; /* Ép hiển thị 1 hàng 1 lời chúc trên điện thoại */
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 750px) {
+    .wishes-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -2317,7 +2389,7 @@ body.no-scroll {
     }
 }
 
-/* Responsive cho thiệp mời trên điện thoại nhỏ (iPhone SE) */
+/* Responsive iphone se */
 .mobile-break {
     display: none;
 }
