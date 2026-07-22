@@ -105,13 +105,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const cursorPosition = wishTextarea.selectionStart;
             const textBefore = wishTextarea.value.substring(0, cursorPosition);
             const textAfter = wishTextarea.value.substring(cursorPosition, wishTextarea.value.length);
-            
+
             wishTextarea.value = textBefore + event.detail.unicode + textAfter;
-            
+
             // Restore cursor position
             wishTextarea.selectionStart = cursorPosition + event.detail.unicode.length;
             wishTextarea.selectionEnd = cursorPosition + event.detail.unicode.length;
-            
+
             // Focus textarea
             wishTextarea.focus();
         });
@@ -170,10 +170,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     rsvpForm.reset();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-                    
+
                     // Tự động tải lại danh sách lời chúc sau 2 giây (đợi Google Sheets ghi dữ liệu xong)
                     setTimeout(() => {
-                        if(typeof fetchWishes === 'function') fetchWishes();
+                        if (typeof fetchWishes === 'function') fetchWishes();
                     }, 2000);
                 }, 800); // Báo thành công chỉ sau chưa tới 1 giây
             }
@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const createWishCard = (wish) => {
         let dateObj = new Date(wish.timestamp);
         let dateStr = isNaN(dateObj) ? '' : dateObj.toLocaleDateString('vi-VN');
-        
+
         return `
             <div class="wish-card">
                 <div class="wish-quote-icon"><i class="fa-solid fa-quote-left"></i></div>
@@ -224,10 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.result === 'success') {
                     // Đảo ngược lại (cũ nhất lên đầu) do Apps Script đang gửi mới nhất lên đầu
                     const wishes = data.data.reverse();
-                    if(wishesLoading) wishesLoading.style.display = 'none';
-                    
+                    if (wishesLoading) wishesLoading.style.display = 'none';
+
                     if (wishes.length === 0) {
-                        if(wishesGrid) wishesGrid.innerHTML = '<p class="text-center" style="grid-column: 1/-1; color: #666;">Chưa có lời chúc nào. Hãy là người đầu tiên gửi lời chúc nhé!</p>';
+                        if (wishesGrid) wishesGrid.innerHTML = '<p class="text-center" style="grid-column: 1/-1; color: #666;">Chưa có lời chúc nào. Hãy là người đầu tiên gửi lời chúc nhé!</p>';
                         return;
                     }
 
@@ -237,29 +237,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     for (let i = 0; i < previewCount; i++) {
                         htmlPreview += createWishCard(wishes[i]);
                     }
-                    if(wishesGrid) wishesGrid.innerHTML = htmlPreview;
+                    if (wishesGrid) wishesGrid.innerHTML = htmlPreview;
 
                     // Render Modal
                     if (wishes.length > 0) {
-                        if(btnViewAllWishes) {
+                        if (btnViewAllWishes) {
                             btnViewAllWishes.style.display = 'inline-block';
                             btnViewAllWishes.innerText = `XEM TẤT CẢ (${wishes.length})`;
                         }
-                        if(wishesTotalCount) wishesTotalCount.innerText = wishes.length;
-                        
+                        if (wishesTotalCount) wishesTotalCount.innerText = wishes.length;
+
                         let htmlAll = '';
                         wishes.forEach(wish => {
                             htmlAll += createWishCard(wish);
                         });
-                        if(wishesModalList) wishesModalList.innerHTML = htmlAll;
+                        if (wishesModalList) wishesModalList.innerHTML = htmlAll;
                     }
                 } else {
-                    if(wishesLoading) wishesLoading.innerHTML = '<p>Không thể tải lời chúc.</p>';
+                    if (wishesLoading) wishesLoading.innerHTML = '<p>Không thể tải lời chúc.</p>';
                 }
             })
             .catch(err => {
                 console.error(err);
-                if(wishesLoading) wishesLoading.innerHTML = '<p>Đã xảy ra lỗi khi tải lời chúc.</p>';
+                if (wishesLoading) wishesLoading.innerHTML = '<p>Đã xảy ra lỗi khi tải lời chúc.</p>';
             });
     };
 
@@ -332,11 +332,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 8. Lightbox Gallery
     const weddingImages = [
-        "1.webp", "2.webp", "3.webp", "4.webp", "a (17).webp",
-        "b1.webp", "b2.webp", "b3.webp", "b4.webp", "b5.webp", "b6.webp",
-        "c2.webp", "c3.webp", "c4.webp",
-        "d1.webp", "d2.webp", "d3.webp"
-    ].map(name => `./assets/images/wedding/${name}`);
+        "21071.jpg",
+        "21072.jpg",
+        "21073.jpg",
+        "21074.jpg",
+        "21075.jpg",
+        "21076.jpg",
+        "21077.jpg",
+        "21078.jpg",
+        "21079.jpg",
+        "210710.jpg",
+        "210711.jpg",
+        "210712.jpg",
+        "210713.jpg",
+        "210714.jpg",
+        "210715.jpg",
+        "210716.jpg",
+        "210717.jpg"
+    ].map(name => `./assets/images/wd/${name}`);
 
     let currentImageIndex = 0;
     const lightbox = document.getElementById('lightbox');
@@ -473,10 +486,10 @@ function openInvite() {
         if (overlay) {
             overlay.classList.add('hidden');
             document.body.classList.remove('no-scroll');
-            
+
             // Kích hoạt hiệu ứng động cho ảnh và chữ
             const heroSection = document.getElementById('home');
-            if(heroSection) heroSection.classList.add('animate-active');
+            if (heroSection) heroSection.classList.add('animate-active');
         }
     }, 400);
 }

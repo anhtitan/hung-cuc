@@ -21,6 +21,11 @@
     --transition: all 0.3s ease;
 }
 
+img {
+    /* Đã gỡ bỏ transform: translateZ(0) vì nó tắt tính năng khử răng cưa của trình duyệt khi thu nhỏ ảnh */
+    image-rendering: auto;
+}
+
 body {
     font-family: var(--font-sans);
     color: var(--text-main);
@@ -222,13 +227,25 @@ a {
 }
 
 @keyframes heroZoomOut {
-    0% { transform: scale(1.15); filter: blur(5px) brightness(1.2); }
-    100% { transform: scale(1.05); filter: blur(0) brightness(1); }
+    0% {
+        transform: scale(1.15);
+        filter: blur(5px) brightness(1.2);
+    }
+
+    100% {
+        transform: scale(1.05);
+        filter: blur(0) brightness(1);
+    }
 }
 
 @keyframes zoomOutAmbient {
-    0% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* Base content opacity */
@@ -245,8 +262,13 @@ a {
 }
 
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .hero-overlay {
@@ -310,18 +332,39 @@ a {
 }
 
 @keyframes slideInLeftName {
-    0% { transform: translateX(-40px) skewX(-12deg); opacity: 0; }
-    100% { transform: translateX(0) skewX(-12deg); opacity: 1; }
+    0% {
+        transform: translateX(-40px) skewX(-12deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0) skewX(-12deg);
+        opacity: 1;
+    }
 }
 
 @keyframes slideInRightName {
-    0% { transform: translateX(40px) skewX(-12deg); opacity: 0; }
-    100% { transform: translateX(0) skewX(-12deg); opacity: 1; }
+    0% {
+        transform: translateX(40px) skewX(-12deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0) skewX(-12deg);
+        opacity: 1;
+    }
 }
 
 @keyframes zoomInAmpersand {
-    0% { transform: scale(0.5) skewX(-12deg); opacity: 0; }
-    100% { transform: scale(1) skewX(-12deg); opacity: 1; }
+    0% {
+        transform: scale(0.5) skewX(-12deg);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1) skewX(-12deg);
+        opacity: 1;
+    }
 }
 
 .hero-divider {
@@ -407,6 +450,13 @@ a {
     width: calc(100% + 1.3px);
     height: 90px;
     color: #eff5ef;
+}
+
+@media (max-width: 768px) {
+    .hero-curve svg {
+        height: 40px;
+        /* Làm bẹt khung viền trên điện thoại để không bị méo */
+    }
 }
 
 /* Save The Date Calendar */
@@ -970,7 +1020,9 @@ a {
 .box-images img {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     border-radius: 8px;
-    /* Slight rounding for better look */
+    /* Khử răng cưa (nét đứt) bằng cách làm mềm nhẹ khi ảnh lớn bị thu nhỏ quá mức */
+    filter: blur(0.3px);
+    transform: perspective(1px) translateZ(0);
 }
 
 .gallery-masonry-1 img:hover,
@@ -1070,7 +1122,7 @@ a {
 }
 
 .rsvp-form-container {
-    max-width: 500px;
+    max-width: 700px; /* Tăng chiều ngang của form */
     margin: 0 auto;
     background: #fff;
     padding: 40px;
@@ -1141,6 +1193,13 @@ a {
     background-position: center;
     background-attachment: fixed;
     color: #fff;
+}
+
+/* Trên màn hình máy tính, phóng to ảnh lên 115% để có khoảng trống dịch chuyển sang phải */
+@media (min-width: 768px) {
+    .countdown-section {
+        background-size: 115vw auto;
+    }
 }
 
 .countdown-overlay {
@@ -1467,7 +1526,8 @@ a {
 
 .guest-card .card-content {
     position: relative;
-    height: 150px;
+    aspect-ratio: 3/4;
+    /* Đổi thành khung dọc thay vì cố định 150px */
     border-radius: 12px;
     overflow: hidden;
     border: 3px solid transparent;
@@ -1478,8 +1538,12 @@ a {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top;
+    /* Lấy từ phần đầu người trở xuống */
     display: block;
     transition: transform 0.3s ease;
+    transform: scale(1.9);
+    /* Phóng to mặc định luôn để lấp đầy khung */
 }
 
 .guest-card .card-overlay {
@@ -1497,7 +1561,7 @@ a {
 }
 
 .guest-card:hover img {
-    transform: scale(1.05);
+    transform: scale(2);
 }
 
 .guest-card input[type="radio"]:checked+.card-content {
