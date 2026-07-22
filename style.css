@@ -1640,6 +1640,124 @@ a {
     }
 }
 
+/* --- THANK YOU UI --- */
+.thank-you-ui {
+    text-align: center;
+    padding: 30px 10px;
+    animation: fadeIn 0.5s ease;
+}
+
+.thank-you-avatar {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.thank-you-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.thank-you-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #111d13;
+    margin-bottom: 15px;
+}
+
+.thank-you-message {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.thank-you-signature {
+    font-style: italic;
+    /* font-family: 'Great Vibes', cursive; */
+    font-size: 1rem;
+    color: #55875c;
+    margin-bottom: 30px;
+}
+
+.view-wishes-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: #55875c;
+    transition: opacity 0.3s;
+    font-family: inherit;
+    padding: 10px 20px;
+}
+
+.view-wishes-btn:hover {
+    opacity: 0.8;
+}
+
+.view-wishes-btn .wishes-icon {
+    font-size: 1.2rem;
+    display: inline-block;
+    transform-origin: bottom center;
+}
+
+.view-wishes-btn:hover .wishes-icon {
+    animation: wiggle 1s ease-in-out infinite;
+}
+
+.view-wishes-btn .wishes-text {
+    position: relative;
+    font-weight: 500;
+}
+
+.view-wishes-btn .wishes-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    height: 1px;
+    width: 100%;
+    background-color: rgba(85, 135, 92, 0.4);
+}
+
+@keyframes wiggle {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-10deg);
+    }
+
+    75% {
+        transform: rotate(10deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .thank-you-avatar {
+        width: 200px;
+        height: 200px;
+    }
+
+    .thank-you-heading {
+        font-size: 1.6rem;
+    }
+}
+
 /* --- END NEW RSVP FORM --- */
 
 /* Gift Section */
@@ -2250,7 +2368,7 @@ body.no-scroll {
     font-weight: bold;
     color: #333;
     display: block;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .wish-author .author-rel {
@@ -2259,8 +2377,12 @@ body.no-scroll {
 }
 
 .wish-date {
+    position: absolute;
+    top: 15px;
+    right: 20px;
     font-size: 0.75rem;
-    color: #aaa;
+    color: #999;
+    font-style: italic;
 }
 
 /* --- WISHES MODAL --- */

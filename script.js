@@ -126,9 +126,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Tự động nhảy số người tham dự
         const attendanceSelect = rsvpForm.querySelector('select[name="attendance"]');
         const guestCountSelect = rsvpForm.querySelector('select[name="guestCount"]');
-        
+
         if (attendanceSelect && guestCountSelect) {
-            attendanceSelect.addEventListener('change', function() {
+            attendanceSelect.addEventListener('change', function () {
                 if (this.value === 'Không') {
                     guestCountSelect.value = '0';
                     guestCountSelect.style.pointerEvents = 'none';
@@ -180,24 +180,116 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Báo thành công ngay lập tức để người dùng không phải đợi Google phản hồi (Optimistic UI)
                 setTimeout(() => {
-                    formMessage.innerText = 'Cảm ơn bạn đã gửi lời chúc! Hẹn gặp bạn tại lễ cưới nhé.';
-                    formMessage.style.display = 'block';
-                    formMessage.style.color = '#55875c';
-                    formMessage.style.marginTop = '20px';
-                    formMessage.style.fontWeight = 'bold';
+                    const guestName = formData.get('name') || 'bạn';
+                    const attendance = formData.get('attendance');
+
+                    document.getElementById('thankYouName').innerText = guestName;
+
+                    const msgEl = document.getElementById('thankYouMessage');
+                    if (attendance === 'Có') {
+                        msgEl.innerText = 'Lời chúc của Quý khách là niềm hạnh phúc của gia đình chúng tôi. Hẹn gặp Quý khách trong ngày đặc biệt!';
+                    } else {
+                        msgEl.innerText = 'Dù Quý khách không thể tham dự, lời chúc của Quý khách vẫn là món quà tinh thần vô cùng ý nghĩa đối với gia đình chúng tôi.';
+                    }
+
+                    rsvpForm.style.display = 'none';
+                    const formTitle = document.querySelector('.form-title');
+                    if (formTitle) formTitle.style.display = 'none';
+
+                    const thankYouUI = document.getElementById('thankYouUI');
+                    if (thankYouUI) thankYouUI.style.display = 'block';
+
+                    // --- Cập nhật lời chúc lên giao diện ngay lập tức ---
+                    let messageText = formData.get('message') || '';
+                    if (messageText.trim() !== '') {
+                        const newWishHtml = `
+                            <div class="wish-card" style="border: 1px solid #55875c; background: #f4f8f4; animation: fadeIn 0.5s ease;">
+                                <div class="wish-quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+                                <div class="wish-message">${String(messageText).replace(/\n/g, '<br>')}</div>
+                                <div class="wish-meta">
+                                    <div class="wish-author">
+                                        <span class="author-name">${guestName}</span>
+                                        <span class="author-rel">${formData.get('guestOf') ? 'Khách của ' + formData.get('guestOf') : ''}</span>
+                                    </div>
+                                    <div class="wish-date">Vừa xong</div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        const grid1 = document.getElementById('wishesGrid1');
+                        const grid2 = document.getElementById('wishesGrid2');
+                        const modalList = document.getElementById('wishesModalList');
+                        
+                        // Xóa dòng "Chưa có lời chúc nào" nếu có
+                        if (grid1 && grid1.innerHTML.includes('Chưa có lời chúc nào')) {
+                            grid1.innerHTML = '';
+                            if (grid2) grid2.innerHTML = '';
+                        }
+                        
+                        if (grid1) grid1.insertAdjacentHTML('afterbegin', newWishHtml);
+                        if (grid2) grid2.insertAdjacentHTML('afterbegin', newWishHtml);
+                        
+                        if (window.allFetchedWishes) {
+                            window.allFetchedWishes.unshift({
+                                name: guestName,
+                                message: messageText,
+                                guestOf: formData.get('guestOf') || '',
+                                timestamp: new Date().toISOString()
+                            });
+                            if (typeof window.renderSortedWishes === 'function') window.renderSortedWishes();
+                        } else {
+                            if (modalList) modalList.insertAdjacentHTML('afterbegin', newWishHtml);
+                        }
+                        
+                        const countEl = document.getElementById('wishesTotalCount');
+                        if (countEl) {
+                            let currentCount = parseInt(countEl.innerText.replace(/[^0-9]/g, '')) || 0;
+                            countEl.innerText = `${currentCount + 1} Lời chúc`;
+                        }
+
+                        // Khởi động lại animation cuộn từ đầu để hiện lời chúc mới nhất
+                        const track = document.getElementById('wishesMarqueeTrack');
+                        if (track) {
+                            track.classList.remove('run-animation');
+                            void track.offsetWidth; // Ép trình duyệt cập nhật thay đổi (reflow)
+                            track.classList.add('run-animation');
+                        }
+                        
+                        // Tự động cuộn nhẹ màn hình xuống khu vực lời chúc
+                        const container = document.querySelector('.wishes-marquee-container');
+                        if (container) {
+                            container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }
+                    // --------------------------------------------------
+
                     rsvpForm.reset();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-
-                    // Tự động tải lại danh sách lời chúc sau 2 giây (đợi Google Sheets ghi dữ liệu xong)
-                    setTimeout(() => {
-                        if (typeof fetchWishes === 'function') fetchWishes();
-                    }, 2000);
                 }, 800); // Báo thành công chỉ sau chưa tới 1 giây
             }
         });
     }
     // 5.5 Fetch and Display Wishes
+    window.allFetchedWishes = [];
+    window.renderSortedWishes = () => {
+        const modalList = document.getElementById('wishesModalList');
+        const sortSelect = document.getElementById('wishesSortSelect');
+        if (!modalList || !window.allFetchedWishes) return;
+        
+        let order = sortSelect ? sortSelect.value : 'newest';
+        let sorted = [...window.allFetchedWishes];
+        if (order === 'oldest') {
+            sorted.reverse();
+        }
+        
+        let htmlAll = '';
+        sorted.forEach(wish => {
+            htmlAll += createWishCard(wish);
+        });
+        modalList.innerHTML = htmlAll;
+    };
+
     const wishesGrid = document.getElementById('wishesGrid');
     const wishesLoading = document.getElementById('wishesLoading');
     const btnViewAllWishes = document.getElementById('btnViewAllWishes');
@@ -208,7 +300,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const createWishCard = (wish) => {
         let dateObj = new Date(wish.timestamp);
-        let dateStr = isNaN(dateObj) ? '' : dateObj.toLocaleDateString('vi-VN');
+        let dateStr = '';
+        if (!isNaN(dateObj)) {
+            const h = String(dateObj.getHours()).padStart(2, '0');
+            const m = String(dateObj.getMinutes()).padStart(2, '0');
+            const d = String(dateObj.getDate()).padStart(2, '0');
+            const mo = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const y = dateObj.getFullYear();
+            dateStr = `${h}:${m} - ${d}/${mo}/${y}`;
+        }
 
         return `
             <div class="wish-card">
@@ -252,35 +352,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     // Hiển thị tối đa 10 lời chúc để khung cuộn không quá dài gây lỗi trên Safari
                     let htmlPreview = '';
-                    const previewCount = Math.min(wishes.length, 10);
+                    const previewCount = Math.min(wishes.length, 21);
                     for (let i = 0; i < previewCount; i++) {
                         htmlPreview += createWishCard(wishes[i]);
                     }
-                    
+
                     const wishesGrid1 = document.getElementById('wishesGrid1');
                     const wishesGrid2 = document.getElementById('wishesGrid2');
-                    
+
                     if (wishesGrid1) wishesGrid1.innerHTML = htmlPreview;
                     if (wishesGrid2) wishesGrid2.innerHTML = htmlPreview; // Nhân bản để cuộn vòng tròn
-                    
+
                     // Ép Safari tính toán lại kích thước DOM trước khi chạy hiệu ứng để tránh lỗi render
                     const track = document.getElementById('wishesMarqueeTrack');
                     if (track) {
                         void track.offsetHeight;
-                        
+
                         // Dùng IntersectionObserver để theo dõi khi nào người dùng cuộn tới Lời chúc
-                        const observer = new IntersectionObserver((entries) => {
-                            if (entries[0].isIntersecting) {
-                                // Đợi 1 giây (1000ms) sau khi nhìn thấy mới bắt đầu cuộn
-                                setTimeout(() => {
-                                    track.classList.add('run-animation');
-                                }, 1000);
-                                // Ngắt theo dõi để chỉ kích hoạt 1 lần duy nhất
-                                observer.disconnect();
-                            }
-                        }, { threshold: 0.2 }); // Kích hoạt khi cuộn tới 20% phần lời chúc
-                        
-                        observer.observe(track);
+                        const container = document.querySelector('.wishes-marquee-container');
+                        if (container) {
+                            const observer = new IntersectionObserver((entries) => {
+                                if (entries[0].isIntersecting) {
+                                    // Đợi 1 giây (1000ms) sau khi nhìn thấy mới bắt đầu cuộn
+                                    setTimeout(() => {
+                                        track.classList.add('run-animation');
+                                    }, 1000);
+                                    // Ngắt theo dõi để chỉ kích hoạt 1 lần duy nhất
+                                    observer.disconnect();
+                                }
+                            }, { threshold: 0.2 }); // Kích hoạt khi cuộn tới 20% khung container
+
+                            observer.observe(container);
+                        } else {
+                            track.classList.add('run-animation');
+                        }
                     }
 
                     // Render Modal
@@ -291,11 +396,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         if (wishesTotalCount) wishesTotalCount.innerText = wishes.length;
 
-                        let htmlAll = '';
-                        wishes.forEach(wish => {
-                            htmlAll += createWishCard(wish);
-                        });
-                        if (wishesModalList) wishesModalList.innerHTML = htmlAll;
+                        window.allFetchedWishes = wishes;
+                        if (typeof window.renderSortedWishes === 'function') window.renderSortedWishes();
                     }
                 } else {
                     if (wishesLoading) wishesLoading.innerHTML = '<p>Không thể tải lời chúc.</p>';
@@ -507,12 +609,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (overlay && guestNameEl) {
         if (guest) {
             guestNameEl.textContent = guest;
-            
+
             // Cập nhật thẻ meta SEO và Open Graph
             const ogDesc = document.querySelector('meta[property="og:description"]');
             const metaDesc = document.querySelector('meta[name="description"]');
             const customText = `Trân trọng kính mời ${guest} đến tham dự lễ cưới của Quang Hưng và Kim Cúc`;
-            
+
             if (ogDesc) ogDesc.setAttribute('content', customText);
             if (metaDesc) metaDesc.setAttribute('content', customText);
         } else {
@@ -532,18 +634,18 @@ function openInvite() {
     if (wrapper) {
         const staticEnv = document.getElementById('staticEnvelope');
         const animatedEnv = document.getElementById('animatedEnvelope');
-        
+
         if (staticEnv && animatedEnv) {
             staticEnv.style.display = 'none';
             animatedEnv.style.display = 'block';
-            
+
             // Ép trình duyệt render lại trước khi add class open
             void animatedEnv.offsetWidth;
         }
 
         // 1. Thêm class open để kích hoạt hiệu ứng lật nắp thiệp
         wrapper.classList.add('open');
-        
+
         // 2. Chờ 1.2s cho hiệu ứng mở thiệp chạy xong rồi mới phóng to mờ dần
         setTimeout(() => {
             wrapper.style.transform = 'scale(1.2)';

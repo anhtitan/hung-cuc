@@ -44,14 +44,14 @@
                 <div class="css-envelope" id="animatedEnvelope">
                     <div class="env-back"></div>
                     <div class="env-letter">
-                        <div class="letter-content">
-                            <p
-                                style="font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #55875c; margin: 0;">
-                                Save The Date</p>
-                            <h3
-                                style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #111d13; margin: 10px 0;">
-                                Quang Hưng & Kim Cúc</h3>
-                            <p style="font-size: 1.1rem; color: #55875c; font-weight: bold; margin: 0;">08.08.2026</p>
+                        <div class="letter-content" style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; width: 100%; box-sizing: border-box; padding: 0 10px; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('./assets/images/wd/21071.jpg'); background-size: cover; background-position: center; border-radius: 4px;">
+                            <p style="font-family: 'Inter', sans-serif; font-size: 0.6rem; letter-spacing: 2px; color: #eee; text-transform: uppercase; margin: 0 0 5px 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Lễ Thành Hôn</p>
+                            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; margin: 0; font-weight: 600; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);">
+                                Quang Hưng <span style="font-family: 'Playfair Display', serif; color: #a4c2a4; font-style: italic; font-weight: 400; margin: 0 2px;">&</span> Kim Cúc
+                            </h3>
+                            <div style="width: 40px; height: 1px; background: rgba(255,255,255,0.6); margin: 8px 0;"></div>
+                            <p style="font-family: 'Playfair Display', serif; font-size: 0.9rem; color: #fff; margin: 0 0 4px 0; font-weight: 600; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">08.08.2026</p>
+                            <p style="font-family: 'Inter', sans-serif; font-size: 0.5rem; letter-spacing: 1px; color: #ddd; text-transform: uppercase; margin: 0; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">Giao Minh, Ninh Bình, Việt Nam</p>
                         </div>
                     </div>
                     <div class="env-front-left"></div>
@@ -271,7 +271,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="btn-outline">
+                        <a href="https://maps.app.goo.gl/q1xSHRHxvGStJp286" target="_blank" class="btn-outline">
                             <i class="fa-solid fa-car"></i> Chỉ đường
                         </a>
                     </div>
@@ -402,8 +402,10 @@
     <!-- RSVP Section -->
     <section class="rsvp" id="rsvp">
         <div class="container text-center fade-in-up">
-            <p class="subtitle">LỜI CHÚC</p>
-            <h2 class="title">Sự hiện diện của bạn là niềm vinh hạnh của chúng tôi</h2>
+            <p class="subtitle">NHẮN GỬI YÊU THƯƠNG</p>
+            <h2 class="section-title text-center" style="margin-bottom: 50px;">Mỗi lời chúc của Quý khách đều là niềm
+                hạnh phúc cho gia đình chúng
+                tôi.</h2>
 
             <div class="rsvp-form-container">
                 <form class="rsvp-form new-rsvp-form" id="rsvpForm">
@@ -482,7 +484,28 @@
                         <i class="fa-regular fa-paper-plane" style="margin-right: 5px;"></i> GỬI LỜI CHÚC
                     </button>
                 </form>
-                <p id="formMessage" class="form-message" style="display: none;"></p>
+
+                <!-- Thank you UI (initially hidden) -->
+                <div id="thankYouUI" class="thank-you-ui" style="display: none;">
+                    <div class="thank-you-avatar">
+                        <img src="./assets/images/wd/21074.jpg" alt="Quang Hưng & Kim Cúc">
+                    </div>
+                    <h3 class="thank-you-heading">Cảm ơn <span id="thankYouName"></span> rất nhiều <i
+                            class="fa-solid fa-heart" style="color: #55875c;"></i><i class="fa-solid fa-heart"
+                            style="color: #55875c; margin: 0 3px;"></i><i class="fa-solid fa-heart"
+                            style="color: #55875c;"></i></h3>
+                    <p class="thank-you-message" id="thankYouMessage"></p>
+                    <div class="thank-you-signature">
+                        <i class="fa-solid fa-heart" style="color: #55875c;"></i> Quang Hưng & Kim Cúc <i
+                            class="fa-solid fa-heart" style="color: #55875c;"></i>
+                    </div>
+                    <button type="button" class="view-wishes-btn" tabindex="0"
+                        onclick="document.getElementById('wishesModal').style.display='flex'">
+                        <span class="wishes-icon">💌</span>
+                        <span class="wishes-text">Xem những lời chúc đã gửi</span>
+                    </button>
+                </div>
+
             </div>
         </div>
     </section>
@@ -645,8 +668,14 @@
             <div class="wishes-modal-right">
                 <button class="wishes-close-btn" id="closeWishesModal"><i class="fa-solid fa-xmark"></i></button>
                 <div class="wishes-modal-header">
-                    <h3><i class="fa-regular fa-envelope" style="color: #d15656; margin-right: 8px;"></i> Lời chúc</h3>
-                    <p>Tổng cộng <span id="wishesTotalCount">0</span> lời chúc &bull; Cuộn xuống để xem thêm</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <h3 style="margin: 0;"><i class="fa-regular fa-envelope" style="color: #d15656; margin-right: 8px;"></i> Lời chúc</h3>
+                        <select id="wishesSortSelect" onchange="if(window.renderSortedWishes) window.renderSortedWishes()" style="padding: 4px 8px; border-radius: 4px; border: 1px solid #ddd; outline: none; cursor: pointer; color: #555; background: #fff; font-size: 0.85rem; font-family: inherit;">
+                            <option value="newest">Mới nhất</option>
+                            <option value="oldest">Cũ nhất</option>
+                        </select>
+                    </div>
+                    <p style="margin-top: 8px;">Tổng cộng <span id="wishesTotalCount">0</span> lời chúc &bull; Cuộn xuống để xem thêm</p>
                 </div>
                 <div class="wishes-scroll-container" id="wishesModalList">
                     <!-- Sẽ được điền bằng Javascript -->
