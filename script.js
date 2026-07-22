@@ -682,6 +682,95 @@ function openInvite() {
             // Kích hoạt hiệu ứng động cho ảnh và chữ
             const heroSection = document.getElementById('home');
             if (heroSection) heroSection.classList.add('animate-active');
+            
+            // Tự động phát nhạc khi mở thiệp (nếu trình duyệt cho phép)
+            const bgMusic = document.getElementById('bgMusic');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            if (bgMusic && bgMusic.paused) {
+                bgMusic.play().then(() => {
+                    if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+                }).catch(e => console.log("Trình duyệt chặn tự động phát nhạc:", e));
+            }
         }
     }, 1600);
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 6. Music Player
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggleBtn = document.getElementById('musicToggleBtn');
+    const musicPlayerCard = document.getElementById('musicPlayerCard');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const progressBarBg = document.getElementById('progressBarBg');
+    const progressBarFill = document.getElementById('progressBarFill');
+    const currentTimeEl = document.getElementById('currentTime');
+    const totalTimeEl = document.getElementById('totalTime');
+
+    if (bgMusic && musicToggleBtn) {
+        // Toggle player visibility
+        musicToggleBtn.addEventListener('click', (e) => {
+            musicPlayerCard.classList.toggle('hidden');
+        });
+
+        // Close player when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!musicPlayerCard.contains(e.target) && !musicToggleBtn.contains(e.target)) {
+                if (!musicPlayerCard.classList.contains('hidden')) {
+                    musicPlayerCard.classList.add('hidden');
+                }
+            }
+        });
+
+        // Play/Pause
+        playPauseBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+            } else {
+                bgMusic.pause();
+            }
+        });
+
+        // Sync toggle button and play button state with audio events
+        bgMusic.addEventListener('play', () => {
+            musicToggleBtn.classList.add('playing');
+            musicToggleBtn.setAttribute('data-tooltip', 'Đang phát nhạc');
+            if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+        });
+
+        bgMusic.addEventListener('pause', () => {
+            musicToggleBtn.classList.remove('playing');
+            musicToggleBtn.setAttribute('data-tooltip', 'Phát nhạc');
+            if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
+        });
+
+        // Format time (seconds to M:SS)
+        const formatTime = (time) => {
+            if (isNaN(time)) return "0:00";
+            const minutes = Math.floor(time / 60);
+            const seconds = Math.floor(time % 60);
+            return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        };
+
+        // Update progress and time
+        bgMusic.addEventListener('timeupdate', () => {
+            if (bgMusic.duration) {
+                const progressPercent = (bgMusic.currentTime / bgMusic.duration) * 100;
+                progressBarFill.style.width = `${progressPercent}%`;
+                currentTimeEl.textContent = formatTime(bgMusic.currentTime);
+            }
+        });
+
+        // Set total time when loaded
+        bgMusic.addEventListener('loadedmetadata', () => {
+            totalTimeEl.textContent = formatTime(bgMusic.duration);
+        });
+
+        // Seek when clicking on progress bar
+        progressBarBg.addEventListener('click', (e) => {
+            const width = progressBarBg.clientWidth;
+            const clickX = e.offsetX;
+            const duration = bgMusic.duration;
+            bgMusic.currentTime = (clickX / width) * duration;
+        });
+    }
+});
