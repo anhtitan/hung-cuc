@@ -2084,8 +2084,12 @@ body.no-scroll {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    animation: marqueeVertical 40s linear infinite;
     transform: translate3d(0,0,0); /* Khắc phục lỗi biến mất trên iOS/Safari */
+}
+
+/* Chỉ thêm class này bằng JS sau khi đã render xong HTML để tránh lỗi tính sai kích thước trên iOS */
+.wishes-marquee-track.run-animation {
+    animation: marqueeVertical 40s linear infinite;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -2100,7 +2104,7 @@ body.no-scroll {
         mask-image: none;
         height: 500px;
     }
-    .wishes-marquee-track {
+    .wishes-marquee-track.run-animation {
         /* Cần tốc độ chậm hơn (70s) trên mobile vì thẻ bị xếp thành 1 cột dọc rất dài */
         animation: marqueeVertical 70s linear infinite; 
     }

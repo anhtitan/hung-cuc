@@ -244,6 +244,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     if (wishesGrid1) wishesGrid1.innerHTML = htmlPreview;
                     if (wishesGrid2) wishesGrid2.innerHTML = htmlPreview; // Nhân bản để cuộn vòng tròn
+                    
+                    // Ép Safari tính toán lại kích thước DOM trước khi chạy hiệu ứng để tránh lỗi render
+                    const track = document.getElementById('wishesMarqueeTrack');
+                    if (track) {
+                        void track.offsetHeight;
+                        track.classList.add('run-animation');
+                    }
 
                     // Render Modal
                     if (wishes.length > 0) {
