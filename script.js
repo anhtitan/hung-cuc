@@ -2,7 +2,15 @@ const _0x4f2a = ['aHR0cHM6Ly9zY3JpcHQu', 'Z29vZ2xlLmNvbS9tYWNy', 'b3Mvcy9BS2Z5Y2
 const GOOGLE_SCRIPT_URL = atob(_0x4f2a.join(''));
 const initialWishesPromise = fetch(GOOGLE_SCRIPT_URL).then(res => res.json()).catch(err => ({ result: 'error', error: err }));
 
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Ép trang cuộn lên đầu tiên khi tải lại trang
+    window.scrollTo(0, 0);
+    setTimeout(() => window.scrollTo(0, 0), 10);
+
     // 1. Mobile Menu Toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const mobileMenu = document.querySelector('.mobile-menu');
@@ -651,6 +659,12 @@ function openInvite() {
     // Cuộn lên đầu trang ngay lập tức
     window.scrollTo(0, 0);
 
+    // Tự động phát nhạc ngay khi click (đồng bộ) để tránh trình duyệt chặn Autoplay
+    const bgMusic = document.getElementById('bgMusic');
+    if (bgMusic && bgMusic.paused) {
+        bgMusic.play().catch(e => console.log("Trình duyệt chặn phát nhạc:", e));
+    }
+
     if (wrapper) {
         const staticEnv = document.getElementById('staticEnvelope');
         const animatedEnv = document.getElementById('animatedEnvelope');
@@ -682,15 +696,6 @@ function openInvite() {
             // Kích hoạt hiệu ứng động cho ảnh và chữ
             const heroSection = document.getElementById('home');
             if (heroSection) heroSection.classList.add('animate-active');
-            
-            // Tự động phát nhạc khi mở thiệp (nếu trình duyệt cho phép)
-            const bgMusic = document.getElementById('bgMusic');
-            const playPauseBtn = document.getElementById('playPauseBtn');
-            if (bgMusic && bgMusic.paused) {
-                bgMusic.play().then(() => {
-                    if (playPauseBtn) playPauseBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-                }).catch(e => console.log("Trình duyệt chặn tự động phát nhạc:", e));
-            }
         }
     }, 1600);
 }
