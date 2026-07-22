@@ -232,9 +232,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         return;
                     }
 
-                    // Hiển thị tất cả lời chúc (hoặc tối đa 20 lời chúc mới nhất để cuộn)
+                    // Hiển thị tối đa 10 lời chúc để khung cuộn không quá dài gây lỗi trên Safari
                     let htmlPreview = '';
-                    const previewCount = Math.min(wishes.length, 20);
+                    const previewCount = Math.min(wishes.length, 10);
                     for (let i = 0; i < previewCount; i++) {
                         htmlPreview += createWishCard(wishes[i]);
                     }
