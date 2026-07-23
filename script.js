@@ -191,10 +191,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Thuật toán chống Replay Attack (Nonce + Timestamp + Token)
             const nonce = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2);
             const timestamp = Date.now().toString();
-            
+
             const _0xkey = ['V0VERElOR1', '9IQ18yMDI2X', '1NFQ1VSRV', '9LRVk='];
             const secret = atob(_0xkey.join(''));
-            
+
             const message = nonce + timestamp + secret;
             const encoder = new TextEncoder();
             const data = encoder.encode(message);
@@ -475,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (btnViewAllWishes) {
         btnViewAllWishes.addEventListener('click', toggleWishesModal);
     }
-    
+
     if (formViewWishesBtn) {
         formViewWishesBtn.addEventListener('click', toggleWishesModal);
     }
@@ -500,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. Countdown Timer
     const countdown = () => {
-        const countDate = new Date("Aug 8, 2026 14:00:00").getTime();
+        const countDate = new Date("Aug 8, 2026 15:00:00").getTime();
         const now = new Date().getTime();
         const gap = countDate - now;
 
