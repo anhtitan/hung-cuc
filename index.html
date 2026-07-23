@@ -445,8 +445,8 @@
 
                     <!-- Name and Nickname -->
                     <div class="form-group text-left">
-                        <label class="form-label">Tên của bạn</label>
-                        <input type="text" name="name" placeholder="Nguyễn Văn A" required>
+                        <label class="form-label" for="guestName">Tên của bạn</label>
+                        <input type="text" id="guestName" name="name" placeholder="Nguyễn Văn A" required>
                     </div>
 
                     <!-- Who invited you -->
@@ -481,9 +481,9 @@
                     <!-- Attendance and Guest Count -->
                     <div class="form-row">
                         <div class="form-group text-left half-width">
-                            <label class="form-label">Bạn có thể tham dự không?</label>
+                            <label class="form-label" for="attendanceSelect">Bạn có thể tham dự không?</label>
                             <div class="custom-select-wrapper">
-                                <select name="attendance" required>
+                                <select id="attendanceSelect" name="attendance" required>
                                     <option value="" disabled selected>-- Chọn câu trả lời --</option>
                                     <option value="Có">Có, tôi sẽ đến!</option>
                                     <option value="Không">Tiếc quá, tôi không thể đến</option>
@@ -491,9 +491,9 @@
                             </div>
                         </div>
                         <div class="form-group text-left half-width">
-                            <label class="form-label">Số người tham dự</label>
+                            <label class="form-label" for="guestCountSelect">Số người tham dự</label>
                             <div class="custom-select-wrapper">
-                                <select name="guestCount" required>
+                                <select id="guestCountSelect" name="guestCount" required>
                                     <option value="" disabled selected>-- Số người --</option>
                                     <option value="1">1 người</option>
                                     <option value="2">2 người</option>

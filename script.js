@@ -139,13 +139,27 @@ document.addEventListener('DOMContentLoaded', () => {
         if (attendanceSelect && guestCountSelect) {
             attendanceSelect.addEventListener('change', function () {
                 if (this.value === 'Không') {
+                    Array.from(guestCountSelect.options).forEach(opt => {
+                        if (opt.value === '0') {
+                            opt.style.display = 'block';
+                            opt.disabled = false;
+                        }
+                    });
                     guestCountSelect.value = '0';
                     guestCountSelect.style.pointerEvents = 'none';
                     guestCountSelect.style.opacity = '0.6';
                 } else if (this.value === 'Có') {
+                    Array.from(guestCountSelect.options).forEach(opt => {
+                        if (opt.value === '0') {
+                            opt.style.display = 'none';
+                            opt.disabled = true;
+                        }
+                    });
+                    if (guestCountSelect.value === '0' || !guestCountSelect.value) {
+                        guestCountSelect.value = '1';
+                    }
                     guestCountSelect.style.pointerEvents = 'auto';
                     guestCountSelect.style.opacity = '1';
-                    guestCountSelect.value = '1';
                 }
             });
         }
@@ -159,6 +173,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         rsvpForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            const guestOfChecked = rsvpForm.querySelector('input[name="guestOf"]:checked');
+            if (!guestOfChecked) {
+                alert("Vui lòng chọn bạn là khách mời của ai nhé!");
+                return;
+            }
 
             const btn = rsvpForm.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;
