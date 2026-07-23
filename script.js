@@ -165,9 +165,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const submitBtn = rsvpForm.querySelector('button[type="submit"]');
-        submitBtn.addEventListener('click', () => {
+        submitBtn.addEventListener('click', (e) => {
             if (!rsvpForm.checkValidity()) {
+                e.preventDefault(); // Chặn tooltip native hay bị lỗi trên mobile
                 alert("Vui lòng điền và chọn đầy đủ các thông tin bắt buộc (*) trước khi gửi lời chúc nhé!");
+                
+                // Tự động focus vào ô bị thiếu đầu tiên để dễ bấm
+                const firstInvalid = rsvpForm.querySelector(':invalid');
+                if (firstInvalid) {
+                    firstInvalid.focus();
+                }
             }
         });
 

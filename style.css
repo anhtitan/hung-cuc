@@ -1464,6 +1464,8 @@ a {
     font-family: inherit;
     box-sizing: border-box;
     transition: var(--transition);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .new-rsvp-form input[type="text"]:focus,
