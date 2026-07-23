@@ -1636,6 +1636,9 @@ a {
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+    position: relative;
+    z-index: 10;
+    margin-top: 20px;
 }
 
 .send-btn i {
