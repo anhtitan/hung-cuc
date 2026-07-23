@@ -437,11 +437,27 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     };
 
-    if (btnViewAllWishes) {
-        btnViewAllWishes.addEventListener('click', () => {
+    const formViewWishesBtn = document.getElementById('formViewWishesBtn');
+
+    const toggleWishesModal = (e) => {
+        if (e) e.preventDefault();
+        if (wishesModal.classList.contains('active')) {
+            wishesModal.classList.remove('active');
+            document.body.style.overflow = '';
+            wishesModal.style.display = ''; // Dọn dẹp inline style bị kẹt (nếu có)
+        } else {
             wishesModal.classList.add('active');
             document.body.style.overflow = 'hidden';
-        });
+            wishesModal.style.display = ''; // Đảm bảo CSS class quản lý display
+        }
+    };
+
+    if (btnViewAllWishes) {
+        btnViewAllWishes.addEventListener('click', toggleWishesModal);
+    }
+    
+    if (formViewWishesBtn) {
+        formViewWishesBtn.addEventListener('click', toggleWishesModal);
     }
     if (closeWishesModal) {
         closeWishesModal.addEventListener('click', () => {

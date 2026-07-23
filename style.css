@@ -1616,6 +1616,11 @@ a {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+    cursor: pointer;
+    min-height: 52px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
 }
 
 .send-btn {
@@ -1623,6 +1628,13 @@ a {
     font-size: 1rem;
     letter-spacing: 1px;
     border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.send-btn:active {
+    transform: scale(0.96);
+    opacity: 0.9;
 }
 
 @media (max-width: 600px) {
@@ -1695,25 +1707,27 @@ a {
     cursor: pointer;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     font-size: 0.95rem;
     color: #55875c;
     transition: opacity 0.3s;
     font-family: inherit;
-    padding: 10px 20px;
+    padding: 10px 15px;
+    white-space: nowrap;
 }
 
 .view-wishes-btn:hover {
     opacity: 0.8;
 }
 
-.view-wishes-btn .wishes-icon {
+/* .view-wishes-btn .wishes-text {
     font-size: 1.2rem;
     display: inline-block;
     transform-origin: bottom center;
-}
+} */
 
-.view-wishes-btn:hover .wishes-icon {
+.view-wishes-btn:hover .wishes-text {
     animation: wiggle 1s ease-in-out infinite;
 }
 
