@@ -1632,7 +1632,14 @@ a {
     letter-spacing: 1px;
     border-radius: 12px;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
+    transition: transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.send-btn i {
+    pointer-events: none;
 }
 
 .send-btn:active {
@@ -1904,12 +1911,17 @@ a {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 0;
+    padding: 10px;
+    margin: -10px;
     transition: 0.2s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .qr-btn i {
     color: #c99339;
+    pointer-events: none;
 }
 
 .qr-btn:hover {
@@ -1970,13 +1982,20 @@ a {
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    padding: 0;
+    padding: 10px;
+    margin: -10px;
     transition: 0.2s;
+    margin-top: auto;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .qr-back-btn i {
     color: #c99339;
+    pointer-events: none;
 }
 
 .qr-back-btn:hover {
