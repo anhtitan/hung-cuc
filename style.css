@@ -2603,10 +2603,6 @@ body.no-scroll {
     bottom: 20px;
     right: 20px;
     z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 15px;
 }
 
 .music-toggle-btn {
@@ -2624,6 +2620,7 @@ body.no-scroll {
     display: flex;
     align-items: center;
     justify-content: center;
+    pointer-events: auto;
 }
 
 .music-toggle-btn:hover {
@@ -2631,17 +2628,22 @@ body.no-scroll {
 }
 
 .music-player-card {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
     background-color: #E8F2E9;
     border-radius: 15px;
     padding: 20px;
     width: 280px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
     transform-origin: bottom right;
+    pointer-events: auto;
 }
 
 .music-player-card.hidden {
     opacity: 0;
+    visibility: hidden;
     transform: scale(0) translateY(20px);
     pointer-events: none;
 }
